@@ -1,6 +1,7 @@
 import styles from "../style";
 import { discount, robot } from "../assets";
 import GetStarted from "./GetStarted";
+import { HiLocationMarker } from "react-icons/hi";
 
 const Hero = () => {
   return (
@@ -35,6 +36,11 @@ const Hero = () => {
           most likely to fit your needs. We examine annual percentage rates,
           annual fees.
         </p>
+        <div className="flexCenterSearch search-bar">
+          <HiLocationMarker color="#4066ff" size={25} />
+          <input type="text" />
+          <button className="searchButton">Search</button>
+        </div>
       </div>
       <div
         className={`flex-1 flex ${styles.flexCenter} md:my-0 my-10 relative`}
