@@ -13,7 +13,7 @@ const Footer = () => {
             className="w-[266px] h-[172px] object-contain"
           />
           <p className={`${styles.paragraph} mt-4 max-w-[310px]`}>
-            A new way to make the payments easy, reliable and secure.
+            A new way to enhance your city exploration.
           </p>
         </div>
         <div className="flex-[1.5] w-full flex flex-row justify-between flex-wrap md:mt-0 mt-10">
@@ -43,7 +43,7 @@ const Footer = () => {
       </div>
       <div className="w-full flex justify-between items-center md:flex-row flex-col pt-6 border-t-[1px] border-t-[#3F3E45]">
         <p className="font-poppins font-normal text-center text-[18px] leading-[27px] text-white">
-          2023 HooBank. All Rights Reserved.
+          2023 Dijkstravel. All Rights Reserved.
         </p>
         <div className="flex flex-row md:mt-0 mt-6">
           {socialMedia.map((social, index) => (

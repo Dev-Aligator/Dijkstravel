@@ -20,13 +20,13 @@ const Billing = () => {
       <div className={layout.sectionInfo}>
         <AnimationOnScroll animateIn="animate__fadeInRight">
           <h2 className={styles.heading2}>
-            Easily control your <br className="sm:block hidden" /> billing &
-            invoicing.
+            Easily manage your <br className="sm:block hidden" /> travel plans
+            on-the-go.
           </h2>
           <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
-            Elit enim sed massa etiam. Mauris eu adipiscing ultrices ametodio
-            aenean neque. Fusce ipsum orci rhoncus aliporttitor integer platea
-            placerat.
+            Access our app anywhere, anytime. Explore recommendations,
+            personalize your itinerary, and make the most of your journey. Your
+            ultimate travel companion.
           </p>
           <div className="flex flex-row flex-wrap sm:mt-10 mt-6">
             <img

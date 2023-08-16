@@ -31,8 +31,8 @@ const Hero = () => {
         <div className="flex flex-row items-center py-[6px] px-4 bg-discount-gradient rounded-[10px] mb-2">
           <img src={discount} alt="discount" className="w-[32px] h-[32px]" />
           <p className={`${styles.paragraph} ml-2`}>
-            <span className="text-white">20%</span> Discount For{" "}
-            <span className="text-white">1 Month</span> Account
+            <span className="text-white">AI</span>-Powered{" "}
+            <span className="text-white">Tourist</span> Recommendation System
           </p>
         </div>
         <div className="flex flex-row justify-between items-center w-full">
@@ -65,13 +65,12 @@ const Hero = () => {
               type: "ease-in",
             }}
           >
-            Payment Method.
+            Tour Guide.
           </motion.h1>
         </AnimatePresence>
         <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
-          Our team of experts uses a methodology to identify the credit cards
-          most likely to fit your needs. We examine annual percentage rates,
-          annual fees.
+          Our experts personalize recommendations based on your preferences,
+          considering historical value, popularity, and accessibility.
         </p>
         <motion.div
           className="flexCenterSearch search-bar animate__animated animate__wobble"
