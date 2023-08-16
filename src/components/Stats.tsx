@@ -1,10 +1,10 @@
 import { stats } from "../constants";
 import styles from "../style";
-
+import "animate.css";
 const Stats = () => {
   return (
     <section
-      className={`${styles.flexCenter} flex-row flex-wrap sm:mb-20 mb-6`}
+      className={`${styles.flexCenter} flex-row flex-wrap sm:mb-20 mb-6 animate__animated animate__fadeInUp`}
     >
       {stats.map((stat) => (
         <div

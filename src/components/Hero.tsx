@@ -2,7 +2,7 @@ import styles from "../style";
 import { discount, robot } from "../assets";
 import GetStarted from "./GetStarted";
 import { HiLocationMarker } from "react-icons/hi";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Hero = () => {
   const animationVariants = {
@@ -36,7 +36,28 @@ const Hero = () => {
           </p>
         </div>
         <div className="flex flex-row justify-between items-center w-full">
-          <motion.div
+          <AnimatePresence>
+            <motion.div
+              initial={{ y: "2rem", opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                duration: 2,
+                type: "ease-in",
+              }}
+            >
+              <h1 className="flex-1 font-poppins font-semibold ss:text-[72px] text-[52px] text-white ss:leading-[100.8px] leading-[75px]">
+                The Next <br className="sm:block hidden" />{" "}
+                <span className="text-gradient">Generation</span>{" "}
+              </h1>
+            </motion.div>
+          </AnimatePresence>
+          <div className="ss:flex hidden md:mr-4 mr-0">
+            <GetStarted />
+          </div>
+        </div>
+        <AnimatePresence>
+          <motion.h1
+            className="font-poppins font-semibold ss:text-[68px] text-[52px] text-white ss:leading-[100px] leading-[75px] w-full"
             initial={{ y: "2rem", opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{
@@ -44,33 +65,16 @@ const Hero = () => {
               type: "ease-in",
             }}
           >
-            <h1 className="flex-1 font-poppins font-semibold ss:text-[72px] text-[52px] text-white ss:leading-[100.8px] leading-[75px]">
-              The Next <br className="sm:block hidden" />{" "}
-              <span className="text-gradient">Generation</span>{" "}
-            </h1>
-          </motion.div>
-          <div className="ss:flex hidden md:mr-4 mr-0">
-            <GetStarted />
-          </div>
-        </div>
-        <motion.h1
-          className="font-poppins font-semibold ss:text-[68px] text-[52px] text-white ss:leading-[100px] leading-[75px] w-full"
-          initial={{ y: "2rem", opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{
-            duration: 2,
-            type: "ease-in",
-          }}
-        >
-          Payment Method.
-        </motion.h1>
+            Payment Method.
+          </motion.h1>
+        </AnimatePresence>
         <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
           Our team of experts uses a methodology to identify the credit cards
           most likely to fit your needs. We examine annual percentage rates,
           annual fees.
         </p>
         <motion.div
-          className="flexCenterSearch search-bar"
+          className="flexCenterSearch search-bar animate__animated animate__wobble"
           initial="hidden"
           animate="visible"
           variants={animationVariants}
