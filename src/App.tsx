@@ -1,7 +1,7 @@
 import {
   Billing,
   Business,
-  // CardDeal,
+  CardDeal,
   Clients,
   CTA,
   Footer,
@@ -13,6 +13,7 @@ import {
 import styles from "./style";
 
 const App = () => {
+  const shouldRenderComponents = false;
   return (
     <div className="bg-primary w-full overflow-hidden">
       <div className={`${styles.paddingX} ${styles.flexCenter}`}>
@@ -30,9 +31,9 @@ const App = () => {
           <Stats />
           <Business />
           <Billing />
-          {/* <CardDeal /> */}
-          {/* <Testimonials /> */}
-          {/* <Clients /> */}
+          {shouldRenderComponents ? <CardDeal /> : null}
+          {shouldRenderComponents ? <Testimonials /> : null}
+          {shouldRenderComponents ? <Clients /> : null}
           <CTA />
           <Footer />
         </div>
