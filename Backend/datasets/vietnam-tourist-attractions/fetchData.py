@@ -84,11 +84,11 @@ def googleMapApiCaller(name, location):
                 place_types = place['types']
                 place_name = place["name"]
                 place_location = place["geometry"]['location']
-                try:
-                    place_address = place["vicinity"]
-                except:
-                    place_address = "None"
-
+                place_address = place.get("vicinity", "None")
+                place_photo_ref = place.get('photos', [{"photo_reference": "None"}])[0].get('photo_reference', "None")
+                place_rating = place.get('rating', "None")
+                place_total_ratings = place.get('user_ratings_total', "None")
+                place_opening_hours = place.get('opening_hours', "None")
                 # english_response = requests.get(english_url, english_params )
                 # english_data = english_response.json()['result']
                 # english_name = english_data['name']
@@ -106,7 +106,7 @@ def googleMapApiCaller(name, location):
                 #         print("Error retrieving photo:", photo_response.status_code)
                 # except:
                 #     place_photo = "None"
-                csv_data.append({"id":place_id, "name": place_name, "types" : place_types, "address" : place_address, "location" : place_location, "district" : location})
+                csv_data.append({"id":place_id, "name": place_name, "types" : place_types, "address" : place_address, "location" : place_location, "district" : name, "photo_ref" : place_photo_ref, "place_rating" : place_rating, "place_total_ratings" : place_total_ratings, "place_opening_hours" : place_opening_hours})
                 print(count)
                 count+=1
             except:
