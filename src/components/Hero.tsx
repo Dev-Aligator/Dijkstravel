@@ -4,7 +4,11 @@ import GetStarted from "./GetStarted";
 import { HiLocationMarker } from "react-icons/hi";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Hero = () => {
+interface HeroProps {
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Hero = ({ setOpenModal }: HeroProps) => {
   const animationVariants = {
     hidden: {
       opacity: 0,
@@ -52,7 +56,7 @@ const Hero = () => {
             </motion.div>
           </AnimatePresence>
           <div className="ss:flex hidden md:mr-4 mr-0">
-            <GetStarted />
+            <GetStarted setOpenModal={setOpenModal} />
           </div>
         </div>
         <AnimatePresence>
@@ -102,7 +106,7 @@ const Hero = () => {
         <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" />
       </motion.div>
       <div className={`ss:hidden ${styles.flexCenter}`}>
-        <GetStarted />
+        <GetStarted setOpenModal={setOpenModal} />
       </div>
     </section>
   );

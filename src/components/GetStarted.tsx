@@ -1,10 +1,17 @@
 import styles from "../style";
 import { arrowUp } from "../assets";
 
-const GetStarted = () => {
+interface GetStartedProps {
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const GetStarted = ({ setOpenModal }: GetStartedProps) => {
   return (
     <div
       className={`${styles.flexCenter} w-[140px] h-[140px] rounded-full bg-blue-gradient p-[2px] cursor-pointer`}
+      onClick={() => {
+        setOpenModal(true);
+      }}
     >
       <div
         className={`${styles.flexCenter} flex-col bg-primary w-[100%] h-[100%] rounded-full`}
