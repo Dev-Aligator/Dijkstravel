@@ -129,18 +129,7 @@
   border-radius: 6px;
   background: #FFF;
 }
-.form.signup{
-  opacity: 0;
-  pointer-events: none;
-}
-.forms.show-signup .form.signup{
-  opacity: 1;
-  pointer-events: auto;
-}
-.forms.show-signup .form.login{
-  opacity: 0;
-  pointer-events: none;
-}
+
 header{
   font-size: 28px;
   font-weight: 600;
@@ -272,4 +261,8 @@ a.google span{
       padding: 20px 10px;
   }
   
+}
+
+.link {
+  cursor: pointer;
 }
