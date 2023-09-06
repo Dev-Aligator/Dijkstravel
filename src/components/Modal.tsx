@@ -8,7 +8,7 @@ interface ModalProps {
 
 function Modal({ setOpenModal }: ModalProps) {
   const [showPasswd, setShowPasswd] = useState(false);
-  const [formPage, setFormPage] = useState(true);
+  // const [formPage, setFormPage] = useState(true);
   const func = () => {
     console.log("hmi");
   };
