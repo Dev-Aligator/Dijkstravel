@@ -1,7 +1,10 @@
 import styles from "../style";
 import Button from "./Button";
 
-const CTA = () => {
+interface CTAProps {
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const CTA = ({ setOpenModal }: CTAProps) => {
   return (
     <section
       className={`${styles.flexCenter} ${styles.marginY} ${styles.padding} sm:flex-row flex-col bg-black-gradient-2 rounded-[20px] box-shadow`}
@@ -14,7 +17,7 @@ const CTA = () => {
         </p>
       </div>
       <div className={`${styles.flexCenter} sm:ml-10 ml-0`}>
-        <Button styles="" />
+        <Button setOpenModal={setOpenModal} styles="" />
       </div>
     </section>
   );

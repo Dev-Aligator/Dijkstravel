@@ -4,7 +4,10 @@ import styles, { layout } from "../style";
 import { AnimationOnScroll } from "react-animation-on-scroll";
 import "animate.css/animate.min.css";
 
-const CardDeal = () => {
+interface CardDealProps {
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const CardDeal = ({ setOpenModal }: CardDealProps) => {
   return (
     <section className={layout.section}>
       <div className={layout.sectionInfo}>
@@ -17,7 +20,7 @@ const CardDeal = () => {
             Arcu tortor, purus in mattis at sed integer faucibus. Aliquet quis
             aliquet eget mauris tortor.ç Aliquet ultrices ac, ametau.
           </p>
-          <Button styles="mt-10" />
+          <Button setOpenModal={setOpenModal} styles="mt-10" />
         </AnimationOnScroll>
       </div>
       <div className={layout.sectionImg}>

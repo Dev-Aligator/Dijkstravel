@@ -60,7 +60,10 @@ const FeatureCard = ({
   );
 };
 
-const Business = () => {
+interface BusinessProps {
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const Business = ({ setOpenModal }: BusinessProps) => {
   return (
     <AnimationOnScroll animateIn="animate__fadeInUp" animateOnce={true}>
       <section id="features" className={layout.section}>
@@ -74,7 +77,7 @@ const Business = () => {
             letting you uncover hidden gems and maximize your visit. Amidst
             countless choices available.
           </p>
-          <Button styles="mt-10" />
+          <Button setOpenModal={setOpenModal} styles="mt-10" />
         </div>
         <div className={`${layout.sectionImg} flex-col`}>
           {features.map((feature, index) => (

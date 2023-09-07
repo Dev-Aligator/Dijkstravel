@@ -41,12 +41,14 @@ const App = () => {
       <div className={`bg-primary ${styles.paddingX} ${styles.flexStart}`}>
         <div className={`${styles.boxWidth}`}>
           <Stats />
-          <Business />
+          <Business setOpenModal={setModalOpen} />
           <Billing />
-          {shouldRenderComponents ? <CardDeal /> : null}
+          {shouldRenderComponents ? (
+            <CardDeal setOpenModal={setModalOpen} />
+          ) : null}
           {shouldRenderComponents ? <Testimonials /> : null}
           {shouldRenderComponents ? <Clients /> : null}
-          <CTA />
+          <CTA setOpenModal={setModalOpen} />
           <Footer />
         </div>
       </div>
