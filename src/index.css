@@ -184,3 +184,26 @@
   cursor: pointer;
   transform: scale(1.1);
 }
+
+li.mr-0 {
+  display: inline-block;
+  background-color: #007bff; /* Button background color */
+  color: #fff; /* Button text color */
+  padding: 10px 20px; /* Adjust padding to control button size */
+  border: none;
+  border-radius: 5px; /* Rounded corners to make it look like a button */
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Add a smooth transition effect */
+}
+
+li.mr-0:hover {
+  background-color: #0056b3; /* Change background color on hover */
+}
+
+/* Style the anchor tag inside the button */
+li.mr-0 a {
+  color: inherit; /* Inherit the color from the button */
+  text-decoration: none;
+}

@@ -30,7 +30,7 @@ const App = () => {
       {modalOpen && <Modal setOpenModal={setModalOpen} />}
       <div className={`${styles.paddingX} ${styles.flexCenter}`}>
         <div className={`${styles.boxWidth}`}>
-          <Navbar />
+          <Navbar setOpenModal={setModalOpen} />
         </div>
       </div>
       <div className={`bg-primary ${styles.flexStart}`}>

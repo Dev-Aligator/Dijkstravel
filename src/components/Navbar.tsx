@@ -2,7 +2,11 @@ import { useState } from "react";
 import { close, logo, menu } from "../assets";
 import { navLinks } from "../constants";
 
-const Navbar = () => {
+interface NavbarProps {
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Navbar = ({ setOpenModal }: NavbarProps) => {
   const [toggle, setToggle] = useState(false);
 
   return (
@@ -16,7 +20,17 @@ const Navbar = () => {
               i === navLinks.length - 1 ? "mr-0" : "mr-10"
             } text-white mr-10`}
           >
-            <a href={`#${nav.id}`}>{nav.title}</a>
+            {i === navLinks.length - 1 ? (
+              <a
+                onClick={() => {
+                  setOpenModal(true);
+                }}
+              >
+                {nav.title}
+              </a>
+            ) : (
+              <a href={`#${nav.id}`}>{nav.title}</a>
+            )}
           </li>
         ))}
       </ul>

@@ -29,8 +29,8 @@ export const navLinks = [
     title: "Product",
   },
   {
-    id: "clients",
-    title: "Clients",
+    id: "authentication",
+    title: "Sign In",
   },
 ];
 
