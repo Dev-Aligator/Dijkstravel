@@ -29,7 +29,7 @@ const Navbar = ({ setOpenModal }: NavbarProps) => {
                 {nav.title}
               </a>
             ) : (
-              <a href={`#${nav.id}`}>{nav.title}</a>
+              <a href={`/Dijkstravel/${nav.path}`}>{nav.title}</a>
             )}
           </li>
         ))}

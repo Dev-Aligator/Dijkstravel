@@ -3,6 +3,8 @@ import { discount, robot } from "../assets";
 import GetStarted from "./GetStarted";
 import { HiLocationMarker } from "react-icons/hi";
 import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 interface HeroProps {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,6 +26,25 @@ const Hero = ({ setOpenModal }: HeroProps) => {
       },
     },
   };
+
+  const [places, setPlaces] = useState([]);
+
+  useEffect(() => {
+    // Define the API URL
+    const apiUrl = "http://localhost:8000/api/get/places/";
+
+    // Fetch data from the Django API
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        // Set the fetched data in the state
+        setPlaces(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+  console.log(places);
   return (
     <section
       id="home"
