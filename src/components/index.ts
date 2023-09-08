@@ -10,7 +10,9 @@ import Navbar from "./Navbar";
 import Stats from "./Stats";
 import Testimonials from "./Testimonials";
 import Modal from "./Modal";
-
+import PlaceHero from "./Places/PlaceHero";
+import PlaceFeature from "./Places/PlaceFeature";
+import PlaceGetStarted from "./Places/PlaceGetStarted";
 export {
   Billing,
   Business,
@@ -24,4 +26,7 @@ export {
   Stats,
   Testimonials,
   Modal,
+  PlaceHero,
+  PlaceFeature,
+  PlaceGetStarted,
 };

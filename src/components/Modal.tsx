@@ -21,46 +21,6 @@ function Modal({ setOpenModal }: ModalProps) {
 
       <div className="modalForm">
         <div className="modalContainer form-wrapper">
-          {/* <div classNameName="titleCloseBtn">
-            <button
-              onClick={() => {
-                setOpenModal(false);
-              }}
-            >
-              X
-            </button>
-          </div> */}
-
-          {/* <h2>Sign In</h2>
-          <form action="#">
-            <div classNameName="form-control">
-              <input type="text" required></input>
-              <label>Email or phone number</label>
-            </div>
-            <div classNameName="form-control">
-              <input type="password" required></input>
-              <label>Password</label>
-            </div>
-            <button classNameName="signup-button" type="submit">
-              Sign In
-            </button>
-            <div classNameName="form-help">
-              <div classNameName="remember-me">
-                <input type="checkbox" id="remember-me"></input>
-                <label htmlFor="remember-me">Remember me</label>
-              </div>
-              <a href="#">Need help?</a>
-            </div>
-          </form>
-          <p>
-            New to Netflix? <a href="#">Sign up now</a>
-          </p>
-          <small>
-            This page is protected by Google reCAPTCHA to ensure you're not a
-            bot.
-            <a href="#">Learn more.</a>
-          </small> */}
-
           <section className="form-container forms">
             {formPage ? (
               <div className="form login">
