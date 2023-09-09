@@ -34,7 +34,7 @@ const PlaceFeature = () => {
   };
   useEffect(() => {
     // Define the API URL
-    const apiUrl = `http://aligator.pythonanywhere.com/api/get/places/?page=${pageNumber}`;
+    const apiUrl = `https://aligator.pythonanywhere.com/api/get/places/?page=${pageNumber}`;
     //aligator.pythonanywhere.com
     // Fetch data from the Django API
     http: axios
