@@ -29,7 +29,7 @@ export const navLinks = [
   {
     id: "places",
     title: "Places",
-    path: "places/1",
+    path: "places",
   },
   {
     id: "authentication",

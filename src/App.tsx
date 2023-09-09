@@ -23,7 +23,7 @@ const App = () => {
   return (
     <Routes>
       <Route
-        path="/Dijkstravel"
+        path="/"
         element={
           <div className="bg-primary w-full overflow-hidden main-modal">
             {modalOpen && <Modal setOpenModal={setModalOpen} />}
@@ -57,7 +57,7 @@ const App = () => {
         }
       />
       <Route
-        path="/Dijkstravel/places"
+        path="/places"
         element={
           <main>
             <article>
