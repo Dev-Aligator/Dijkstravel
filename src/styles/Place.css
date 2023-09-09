@@ -168,14 +168,14 @@
 
 .btn {
   position: relative;
-  background: var(--background, var(--carolina-blue));
-  color: var(--color, var(--white));
+  background: var(--background, var(--carolina-blue)) !important;
+  color: var(--color, var(--white)) !important;
   min-width: var(--width, 40px);
   min-height: var(--height, 40px);
   padding: 5px;
-  display: grid;
+  display: grid !important;
   place-items: center;
-  border-radius: var(--radius-14);
+  border-radius: var(--radius-14) !important;
   font-family: var(--ff-nunito);
   font-size: var(--fs-6);
   font-weight: var(--fw-600);
@@ -473,7 +473,11 @@
   gap: 5px;
   margin-bottom: 15px;
 }
-
+.card-price{
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
 .featured-car-card .card-title { width: calc(100% - 60px); }
 
 .featured-car-card .card-title > a {
@@ -1200,4 +1204,14 @@
 
   .footer-list:last-of-type { width: 33.33%; }
 
+}
+
+.centered-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination {
+  margin-top: 50px;
 }

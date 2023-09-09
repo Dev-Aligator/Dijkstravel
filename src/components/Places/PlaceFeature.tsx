@@ -1,14 +1,16 @@
 import {
   ArrowForwardOutline,
   PeopleOutline,
-  FlashOutline,
-  SpeedometerOutline,
-  HardwareChipOutline,
+  LocationOutline,
   HeartOutline,
+  Star,
+  StorefrontOutline,
+  DocumentTextOutline,
 } from "react-ionicons";
+import ClipLoader from "react-spinners/ClipLoader";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import { Pagination } from "@mui/material";
 interface Place {
   googleMapId: string;
   name: string;
@@ -23,25 +25,33 @@ interface Place {
 
 const PlaceFeature = () => {
   const [places, setPlaces] = useState<Place[]>([]);
+  let [loading, setLoading] = useState(true);
 
+  const [pageNumber, setPageNumber] = useState(1);
+  const handleChange = (event: any, value: number) => {
+    setPageNumber(value);
+    console.log(event);
+  };
   useEffect(() => {
     // Define the API URL
-    const apiUrl = "http://localhost:8000/api/get/places/";
-
+    const apiUrl = `http://aligator.pythonanywhere.com/api/get/places/?page=${pageNumber}`;
+    //aligator.pythonanywhere.com
     // Fetch data from the Django API
-    axios
+    http: axios
       .get(apiUrl)
       .then((response) => {
         // Set the fetched data in the state
         setPlaces(response.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []);
+  }, [pageNumber]);
   console.log(places);
+
   return (
-    <section className="section featured-car" id="featured-car">
+    <section className="section featured-car place-component" id="featured-car">
       <div className="container">
         <div className="title-wrapper">
           <h2 className="h2 section-title">Featured cars</h2>
@@ -56,6 +66,15 @@ const PlaceFeature = () => {
               width="20px"
             />
           </a>
+        </div>
+        <div className="centered-div loading-container">
+          <ClipLoader
+            color="#36d7b7"
+            loading={loading}
+            size={125}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
         </div>
 
         <ul className="featured-car-list">
@@ -93,47 +112,63 @@ const PlaceFeature = () => {
                         width="20px"
                       ></PeopleOutline>
 
-                      <span className="card-item-text">{place.location}</span>
+                      <span className="card-item-text">{place.district}</span>
                     </li>
 
                     <li className="card-list-item">
-                      <FlashOutline
+                      <LocationOutline
                         color="hsl(204, 91%, 53%)"
                         title={""}
                         height="20px"
                         width="20px"
-                      ></FlashOutline>
+                      ></LocationOutline>
 
                       <span className="card-item-text">{place.address}</span>
                     </li>
 
                     <li className="card-list-item">
-                      <SpeedometerOutline
+                      <StorefrontOutline
                         color="hsl(204, 91%, 53%)"
                         title={""}
                         width="20px"
                         height="20px"
-                      ></SpeedometerOutline>
-                      <span className="card-item-text">{place.types}</span>
+                      ></StorefrontOutline>
+                      <span className="card-item-text">
+                        {place.types
+                          .replace("[", "") // Remove the leading square bracket
+                          .replace("]", "") // Remove the trailing square bracket
+                          .replace(/'/g, "") // Remove single quotes globally
+                          .replace(/_/g, " ") // Replace underscores with spaces globally
+                          .split(", ") // Split the remaining string by comma and space
+                          .slice(0, 2) // Take the first two elements from the array
+                          .join(", ")}{" "}
+                        {/* Join the first two elements with a comma and space */}
+                      </span>
                     </li>
 
                     <li className="card-list-item">
-                      <HardwareChipOutline
+                      <DocumentTextOutline
                         color="hsl(204, 91%, 53%)"
                         title={""}
                         width="20px"
                         height="20px"
-                      ></HardwareChipOutline>
+                      ></DocumentTextOutline>
 
                       <span className="card-item-text">
-                        {place.totalRating}
+                        {place.totalRating} reviews
                       </span>
                     </li>
                   </ul>
 
                   <div className="card-price-wrapper">
                     <p className="card-price">
-                      <strong>{place.rating}</strong> Star
+                      <strong>{place.rating}</strong>{" "}
+                      <Star
+                        color={"#f8e45c"}
+                        title={""}
+                        height="20px"
+                        width="20px"
+                      ></Star>
                     </p>
 
                     <button
@@ -148,13 +183,16 @@ const PlaceFeature = () => {
                       ></HeartOutline>
                     </button>
 
-                    <button className="btn">Rent now</button>
+                    <button className="btn">Explore</button>
                   </div>
                 </div>
               </div>
             </li>
           ))}
         </ul>
+        <div className="centered-div pagination">
+          <Pagination count={15540} onChange={handleChange} />
+        </div>
       </div>
     </section>
   );
