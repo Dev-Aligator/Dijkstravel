@@ -20,6 +20,7 @@ import { Routes, Route } from "react-router-dom";
 const App = () => {
   const shouldRenderComponents = false;
   const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <Routes>
       <Route

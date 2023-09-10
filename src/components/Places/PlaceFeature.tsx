@@ -1,5 +1,4 @@
 import {
-  ArrowForwardOutline,
   PeopleOutline,
   LocationOutline,
   HeartOutline,
@@ -26,46 +25,147 @@ interface Place {
 const PlaceFeature = () => {
   const [places, setPlaces] = useState<Place[]>([]);
   let [loading, setLoading] = useState(true);
+  const [keyword, setKeyword] = useState("");
+  const [totalPage, setTotalPage] = useState(1);
 
   const [pageNumber, setPageNumber] = useState(1);
   const handleChange = (event: any, value: number) => {
     setPageNumber(value);
+    setPlaces([]);
+    setLoading(true);
     console.log(event);
   };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    setPageNumber(1);
+    const inputValue = e.target.keyword.value;
+    setKeyword(inputValue);
+    setPlaces([]);
+    // You can perform further actions with the keyword here, such as making an API request.
+  };
+
+  const [current_latitude, setCurrentLatitude] = useState(0);
+  const [current_longitude, setCurrentLongitude] = useState(0);
+  useEffect(() => {
+    // Use a flag to track whether the geolocation has been fetched already
+    let geolocationFetched = false;
+
+    if (!geolocationFetched) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        setCurrentLatitude(position.coords.latitude);
+        setCurrentLongitude(position.coords.longitude);
+        // Set the flag to true to avoid fetching geolocation again
+        geolocationFetched = true;
+      });
+    }
+  }, []);
+
+  const calculateDistance = (lat2: number, lon2: number) => {
+    const earthRadius = 6371; // Radius of the Earth in kilometers
+    // Convert latitude and longitude from degrees to radians
+    const lat1Rad = (current_latitude * Math.PI) / 180;
+    const lon1Rad = (current_longitude * Math.PI) / 180;
+    const lat2Rad = (lat2 * Math.PI) / 180;
+    const lon2Rad = (lon2 * Math.PI) / 180;
+
+    // Calculate the differences in latitude and longitude
+    const latDiff = lat2Rad - lat1Rad;
+    const lonDiff = lon2Rad - lon1Rad;
+
+    // Calculate the distance using the Haversine formula
+    const a =
+      Math.sin(latDiff / 2) ** 2 +
+      Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.sin(lonDiff / 2) ** 2;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = earthRadius * c; // Distance in kilometers
+    return distance;
+  };
+
+  const getDistance = (placeLocation: string) => {
+    const validJsonString = placeLocation.replace(/'/g, '"');
+    const placeCoordinates = JSON.parse(validJsonString);
+    const placeLatitude = placeCoordinates.lat;
+    const placeLongitude = placeCoordinates.lng;
+
+    // Continue from here to calc and return the distance
+    const distance = calculateDistance(placeLatitude, placeLongitude);
+    return distance;
+  };
+
   useEffect(() => {
     // Define the API URL
-    const apiUrl = `https://aligator.pythonanywhere.com/api/get/places/?page=${pageNumber}`;
+    const apiUrl = `https://aligator.pythonanywhere.com/api/get/places/?page=${pageNumber}&keyword=${keyword}`;
+    // const apiUrl = `http://localhost:8000/api/get/places/?page=${pageNumber}&keyword=${keyword}`;
+    setLoading(true);
     //aligator.pythonanywhere.com
     // Fetch data from the Django API
     http: axios
       .get(apiUrl)
       .then((response) => {
         // Set the fetched data in the state
-        setPlaces(response.data);
+        setPlaces(response.data["places"]);
+        setTotalPage(response.data["total_filtered_places"]);
         setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, [pageNumber]);
-  console.log(places);
+  }, [pageNumber, keyword]);
 
   return (
     <section className="section featured-car place-component" id="featured-car">
       <div className="container">
         <div className="title-wrapper">
           <h2 className="h2 section-title">Featured cars</h2>
+          <form onSubmit={handleSubmit} className="hero-form">
+            <div className="input-wrapper">
+              <label htmlFor="input-1" className="input-label">
+                Place, type, or brand
+              </label>
 
-          <a href="#" className="featured-car-link">
-            <span>View more</span>
+              <input
+                type="text"
+                name="keyword"
+                id="input-1"
+                className="input-field"
+                placeholder="What place are you looking?"
+              ></input>
+            </div>
 
-            <ArrowForwardOutline
-              color="hsl(204, 91%, 53%)"
-              title={""}
-              height="20px"
-              width="20px"
-            />
-          </a>
+            <div className="input-wrapper">
+              <label htmlFor="input-2" className="input-label">
+                Address
+              </label>
+
+              <input
+                type="text"
+                name="monthly-pay"
+                id="input-2"
+                className="input-field"
+                placeholder="Where ?"
+              ></input>
+            </div>
+
+            <div className="input-wrapper">
+              <label htmlFor="input-3" className="input-label">
+                Make Year
+              </label>
+
+              <input
+                type="text"
+                name="year"
+                id="input-3"
+                className="input-field"
+                placeholder="Add a minimal make year"
+              ></input>
+            </div>
+
+            <button type="submit" className="btn">
+              Search
+            </button>
+          </form>
+          <a href="#" className="featured-car-link"></a>
         </div>
         <div className="centered-div loading-container">
           <ClipLoader
@@ -112,7 +212,9 @@ const PlaceFeature = () => {
                         width="20px"
                       ></PeopleOutline>
 
-                      <span className="card-item-text">{place.district}</span>
+                      <span className="card-item-text">
+                        {getDistance(place.location).toFixed(2)} km
+                      </span>
                     </li>
 
                     <li className="card-list-item">
@@ -191,7 +293,11 @@ const PlaceFeature = () => {
           ))}
         </ul>
         <div className="centered-div pagination">
-          <Pagination count={15540} onChange={handleChange} />
+          <Pagination
+            count={Math.ceil(totalPage / 12)}
+            onChange={handleChange}
+            page={pageNumber}
+          />
         </div>
       </div>
     </section>
