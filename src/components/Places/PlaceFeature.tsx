@@ -118,53 +118,55 @@ const PlaceFeature = () => {
       <div className="container">
         <div className="title-wrapper">
           <h2 className="h2 section-title">Featured cars</h2>
-          <form onSubmit={handleSubmit} className="hero-form">
-            <div className="input-wrapper">
-              <label htmlFor="input-1" className="input-label">
-                Place, type, or brand
-              </label>
+          <div className="centered-div search-form-div">
+            <form onSubmit={handleSubmit} className="hero-form">
+              <div className="input-wrapper">
+                <label htmlFor="input-1" className="input-label">
+                  Place, type, or brand
+                </label>
 
-              <input
-                type="text"
-                name="keyword"
-                id="input-1"
-                className="input-field"
-                placeholder="What place are you looking?"
-              ></input>
-            </div>
+                <input
+                  type="text"
+                  name="keyword"
+                  id="input-1"
+                  className="input-field"
+                  placeholder="What place are you looking?"
+                ></input>
+              </div>
 
-            <div className="input-wrapper">
-              <label htmlFor="input-2" className="input-label">
-                Address
-              </label>
+              <div className="input-wrapper">
+                <label htmlFor="input-2" className="input-label">
+                  Address
+                </label>
 
-              <input
-                type="text"
-                name="monthly-pay"
-                id="input-2"
-                className="input-field"
-                placeholder="Where ?"
-              ></input>
-            </div>
+                <input
+                  type="text"
+                  name="monthly-pay"
+                  id="input-2"
+                  className="input-field"
+                  placeholder="Where ?"
+                ></input>
+              </div>
 
-            <div className="input-wrapper">
-              <label htmlFor="input-3" className="input-label">
-                Make Year
-              </label>
+              <div className="input-wrapper">
+                <label htmlFor="input-3" className="input-label">
+                  Make Year
+                </label>
 
-              <input
-                type="text"
-                name="year"
-                id="input-3"
-                className="input-field"
-                placeholder="Add a minimal make year"
-              ></input>
-            </div>
+                <input
+                  type="text"
+                  name="year"
+                  id="input-3"
+                  className="input-field"
+                  placeholder="Add a minimal make year"
+                ></input>
+              </div>
 
-            <button type="submit" className="btn">
-              Search
-            </button>
-          </form>
+              <button type="submit" className="btn">
+                Search
+              </button>
+            </form>
+          </div>
           <a href="#" className="featured-car-link"></a>
         </div>
         <div className="centered-div loading-container">

@@ -1215,3 +1215,12 @@
 .pagination {
   margin-top: 50px;
 }
+
+.search-form-div {
+  transition: transform 0.3s ease;
+  transform: scale(0.8);
+}
+
+.search-form-div:hover {
+  transform: scale(1.0);
+}
