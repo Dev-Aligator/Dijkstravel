@@ -20,6 +20,7 @@ interface Place {
   rating: number | null;
   totalRating: number | null;
   photo: string | undefined;
+  distance_to_user: number;
 }
 
 const PlaceFeature = () => {
@@ -61,41 +62,13 @@ const PlaceFeature = () => {
     }
   }, []);
 
-  const calculateDistance = (lat2: number, lon2: number) => {
-    const earthRadius = 6371; // Radius of the Earth in kilometers
-    // Convert latitude and longitude from degrees to radians
-    const lat1Rad = (current_latitude * Math.PI) / 180;
-    const lon1Rad = (current_longitude * Math.PI) / 180;
-    const lat2Rad = (lat2 * Math.PI) / 180;
-    const lon2Rad = (lon2 * Math.PI) / 180;
-
-    // Calculate the differences in latitude and longitude
-    const latDiff = lat2Rad - lat1Rad;
-    const lonDiff = lon2Rad - lon1Rad;
-
-    // Calculate the distance using the Haversine formula
-    const a =
-      Math.sin(latDiff / 2) ** 2 +
-      Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.sin(lonDiff / 2) ** 2;
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const distance = earthRadius * c; // Distance in kilometers
-    return distance;
-  };
-
-  const getDistance = (placeLocation: string) => {
-    const validJsonString = placeLocation.replace(/'/g, '"');
-    const placeCoordinates = JSON.parse(validJsonString);
-    const placeLatitude = placeCoordinates.lat;
-    const placeLongitude = placeCoordinates.lng;
-
-    // Continue from here to calc and return the distance
-    const distance = calculateDistance(placeLatitude, placeLongitude);
-    return distance;
-  };
-
   useEffect(() => {
+    setPlaces([]);
     // Define the API URL
-    const apiUrl = `https://aligator.pythonanywhere.com/api/get/places/?page=${pageNumber}&keyword=${keyword}`;
+    const apiUrl = `https://aligator.pythonanywhere.com/api/get/places/?page=${pageNumber}&keyword=${keyword}&location=${[
+      current_latitude,
+      current_longitude,
+    ]}`;
     // const apiUrl = `http://localhost:8000/api/get/places/?page=${pageNumber}&keyword=${keyword}`;
     setLoading(true);
     //aligator.pythonanywhere.com
@@ -111,7 +84,7 @@ const PlaceFeature = () => {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, [pageNumber, keyword]);
+  }, [pageNumber, keyword, current_latitude]);
 
   return (
     <section className="section featured-car place-component" id="featured-car">
@@ -215,7 +188,7 @@ const PlaceFeature = () => {
                       ></PeopleOutline>
 
                       <span className="card-item-text">
-                        {getDistance(place.location).toFixed(2)} km
+                        {place.distance_to_user.toFixed(2)} km
                       </span>
                     </li>
 

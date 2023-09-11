@@ -12,54 +12,6 @@ const PlaceHero = () => {
         </div>
 
         <div className="hero-banner"></div>
-
-        <form action="" className="hero-form">
-          <div className="input-wrapper">
-            <label htmlFor="input-1" className="input-label">
-              Car, model, or brand
-            </label>
-
-            <input
-              type="text"
-              name="car-model"
-              id="input-1"
-              className="input-field"
-              placeholder="What car are you looking?"
-            ></input>
-          </div>
-
-          <div className="input-wrapper">
-            <label htmlFor="input-2" className="input-label">
-              Max. monthly payment
-            </label>
-
-            <input
-              type="text"
-              name="monthly-pay"
-              id="input-2"
-              className="input-field"
-              placeholder="Add an amount in $"
-            ></input>
-          </div>
-
-          <div className="input-wrapper">
-            <label htmlFor="input-3" className="input-label">
-              Make Year
-            </label>
-
-            <input
-              type="text"
-              name="year"
-              id="input-3"
-              className="input-field"
-              placeholder="Add a minimal make year"
-            ></input>
-          </div>
-
-          <button type="submit" className="btn">
-            Search
-          </button>
-        </form>
       </div>
     </section>
   );
