@@ -64,7 +64,7 @@ const LoginPage = ({
   }, [authenticated]);
 
   const handleLogout = () => {
-    if (!authenticated) {
+    if (authenticated) {
       client
         .post("/api/logout/", { withCredentials: true })
         .then(function (res) {
