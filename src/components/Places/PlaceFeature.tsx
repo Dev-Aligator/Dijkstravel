@@ -65,8 +65,8 @@ const PlaceFeature = () => {
   useEffect(() => {
     setPlaces([]);
     // Define the API URL
-    // const baseUrl = "https://aligator.pythonanywhere.com"
-    const baseUrl = "http://localhost:8000";
+    const baseUrl = "https://aligator.pythonanywhere.com";
+    // const baseUrl = "http://localhost:8000";
     const apiUrl = `${baseUrl}/api/get/places/?page=${pageNumber}&keyword=${keyword}&location=${[
       current_latitude,
       current_longitude,
