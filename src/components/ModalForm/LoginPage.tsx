@@ -3,7 +3,10 @@ import axios from "axios";
 import { googleIcon } from "../../assets";
 
 interface LoginPageProps {
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   setFormPage: React.Dispatch<React.SetStateAction<boolean>>;
+  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  authenticated: boolean;
 }
 
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -14,9 +17,13 @@ const client = axios.create({
   baseURL: "http://localhost:8000",
 });
 
-const LoginPage = ({ setFormPage }: LoginPageProps) => {
+const LoginPage = ({
+  setOpenModal,
+  setFormPage,
+  setAuthenticated,
+  authenticated,
+}: LoginPageProps) => {
   const [showPasswd, setShowPasswd] = useState(false);
-  const [currentUser, setCurrentUser] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -35,13 +42,13 @@ const LoginPage = ({ setFormPage }: LoginPageProps) => {
     e.preventDefault();
     client.post("/api/login/", formData).then(function (res) {
       console.log(res);
-      setCurrentUser(true);
-      console.log(currentUser);
+      setAuthenticated(true);
+      setOpenModal(false);
     });
   };
 
   useEffect(() => {
-    if (currentUser) {
+    if (authenticated) {
       client
         .get("/api/get/user/")
         .then(function (res) {
@@ -50,15 +57,20 @@ const LoginPage = ({ setFormPage }: LoginPageProps) => {
         .catch(function (error) {
           console.log(error);
         });
+    } else {
+      handleLogout();
     }
-  }, [currentUser]);
+  }, [authenticated]);
 
-  const handleLogout = (e: any) => {
-    e.preventDefault();
-    client.post("/api/logout/", { withCredentials: true }).then(function (res) {
-      console.log(res);
-      setCurrentUser(false);
-    });
+  const handleLogout = () => {
+    if (!authenticated) {
+      client
+        .post("/api/logout/", { withCredentials: true })
+        .then(function (res) {
+          console.log(res);
+          setAuthenticated(false);
+        });
+    }
   };
 
   return (
@@ -107,7 +119,6 @@ const LoginPage = ({ setFormPage }: LoginPageProps) => {
           </div>
           <div className="field button-field">
             <button type="submit">Login</button>
-            <button onClick={handleLogout}>Logout</button>
           </div>
         </form>
         <div className="form-link">

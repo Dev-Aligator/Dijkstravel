@@ -5,9 +5,11 @@ import RegisterPage from "./ModalForm/RegisterPage";
 
 interface ModalProps {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  authenticated: boolean;
 }
 
-function Modal({ setOpenModal }: ModalProps) {
+function Modal({ setOpenModal, setAuthenticated, authenticated }: ModalProps) {
   const [formPage, setFormPage] = useState(true);
 
   return (
@@ -23,7 +25,12 @@ function Modal({ setOpenModal }: ModalProps) {
         <div className="modalContainer form-wrapper">
           <section className="form-container forms">
             {formPage ? (
-              <LoginPage setFormPage={setFormPage}></LoginPage>
+              <LoginPage
+                setOpenModal={setOpenModal}
+                setFormPage={setFormPage}
+                setAuthenticated={setAuthenticated}
+                authenticated={authenticated}
+              ></LoginPage>
             ) : (
               <RegisterPage setFormPage={setFormPage}></RegisterPage>
             )}

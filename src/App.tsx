@@ -16,20 +16,31 @@ import {
 import styles from "./style";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+
 const App = () => {
   const shouldRenderComponents = false;
   const [modalOpen, setModalOpen] = useState(false);
-
+  const [authenticated, setAuthenticated] = useState(false);
   return (
     <Routes>
       <Route
         path="/"
         element={
           <div className="bg-primary w-full overflow-hidden main-modal">
-            {modalOpen && <Modal setOpenModal={setModalOpen} />}
+            {modalOpen && (
+              <Modal
+                setOpenModal={setModalOpen}
+                setAuthenticated={setAuthenticated}
+                authenticated={authenticated}
+              />
+            )}
             <div className={`${styles.paddingX} ${styles.flexCenter}`}>
               <div className={`${styles.boxWidth}`}>
-                <Navbar setOpenModal={setModalOpen} />
+                <Navbar
+                  setOpenModal={setModalOpen}
+                  authenticated={authenticated}
+                  setAuthenticated={setAuthenticated}
+                />
               </div>
             </div>
             <div className={`bg-primary ${styles.flexStart}`}>
@@ -61,7 +72,11 @@ const App = () => {
         element={
           <main>
             <article>
-              <Navbar setOpenModal={setModalOpen} />
+              <Navbar
+                setOpenModal={setModalOpen}
+                authenticated={authenticated}
+                setAuthenticated={setAuthenticated}
+              />
               <PlaceGetStarted></PlaceGetStarted>
               <PlaceFeature></PlaceFeature>
             </article>

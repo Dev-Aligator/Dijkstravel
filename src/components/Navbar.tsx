@@ -4,9 +4,15 @@ import { navLinks } from "../constants";
 
 interface NavbarProps {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  authenticated: boolean;
 }
 
-const Navbar = ({ setOpenModal }: NavbarProps) => {
+const Navbar = ({
+  setOpenModal,
+  setAuthenticated,
+  authenticated,
+}: NavbarProps) => {
   const [toggle, setToggle] = useState(false);
 
   return (
@@ -21,13 +27,24 @@ const Navbar = ({ setOpenModal }: NavbarProps) => {
             } text-white mr-10`}
           >
             {i === navLinks.length - 1 ? (
-              <a
-                onClick={() => {
-                  setOpenModal(true);
-                }}
-              >
-                {nav.title}
-              </a>
+              authenticated ? (
+                <a
+                  onClick={() => {
+                    setAuthenticated(false);
+                    setOpenModal(true);
+                  }}
+                >
+                  Logout
+                </a>
+              ) : (
+                <a
+                  onClick={() => {
+                    setOpenModal(true);
+                  }}
+                >
+                  {nav.title}
+                </a>
+              )
             ) : (
               <a href={`/Dijkstravel/${nav.path}`}>{nav.title}</a>
             )}

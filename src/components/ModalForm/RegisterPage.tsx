@@ -48,6 +48,7 @@ const RegisterPage = ({ setFormPage }: RegisterPageProps) => {
       if (response.status === 201) {
         console.log("User registered successfully!");
         // You can redirect the user to a login page or display a success message here
+        setFormPage(true);
       } else {
         console.error("Registration failed.");
       }
