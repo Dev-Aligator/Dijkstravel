@@ -10,7 +10,6 @@ import {
   Stats,
   Testimonials,
   Modal,
-  PlaceHero,
   PlaceFeature,
   PlaceGetStarted,
 } from "./components";
@@ -62,9 +61,9 @@ const App = () => {
         element={
           <main>
             <article>
-              <PlaceHero></PlaceHero>
-              <PlaceFeature></PlaceFeature>
+              <Navbar setOpenModal={setModalOpen} />
               <PlaceGetStarted></PlaceGetStarted>
+              <PlaceFeature></PlaceFeature>
             </article>
           </main>
         }
