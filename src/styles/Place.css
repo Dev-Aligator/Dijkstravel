@@ -971,7 +971,7 @@
 
   .hero-form {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 0.8fr;
+    grid-template-columns: 1fr 1fr 0.8fr;
   }
 
   .input-wrapper:not(:last-of-type) {

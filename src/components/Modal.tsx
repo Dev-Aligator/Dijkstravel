@@ -2,16 +2,22 @@ import "../styles/Modal.css";
 import { useState } from "react";
 import LoginPage from "./ModalForm/LoginPage";
 import RegisterPage from "./ModalForm/RegisterPage";
+import { AxiosInstance } from "axios";
 
 interface ModalProps {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   authenticated: boolean;
+  client: AxiosInstance;
 }
 
-function Modal({ setOpenModal, setAuthenticated, authenticated }: ModalProps) {
+function Modal({
+  setOpenModal,
+  setAuthenticated,
+  authenticated,
+  client,
+}: ModalProps) {
   const [formPage, setFormPage] = useState(true);
-
   return (
     <>
       <div
@@ -30,6 +36,7 @@ function Modal({ setOpenModal, setAuthenticated, authenticated }: ModalProps) {
                 setFormPage={setFormPage}
                 setAuthenticated={setAuthenticated}
                 authenticated={authenticated}
+                client={client}
               ></LoginPage>
             ) : (
               <RegisterPage setFormPage={setFormPage}></RegisterPage>

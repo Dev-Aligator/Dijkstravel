@@ -1,11 +1,15 @@
 import {
   PersonAddOutline,
-  CarOutline,
-  PersonOutline,
-  CardOutline,
+  ImageOutline,
+  DocumentTextOutline,
+  AirplaneOutline,
 } from "react-ionicons";
 
-const PlaceGetStarted = () => {
+interface PlaceGetStartedProps {
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const PlaceGetStarted = ({ setOpenModal }: PlaceGetStartedProps) => {
   return (
     <section className="section get-start place-component">
       <div className="container">
@@ -23,35 +27,39 @@ const PlaceGetStarted = () => {
                 ></PersonAddOutline>
               </div>
 
-              <h3 className="card-title">Create a profile</h3>
+              <h3 className="card-title">Create Your Profile Account</h3>
 
               <p className="card-text">
-                If you are going to use a passage of Lorem Ipsum, you need to be
-                sure.
+                Sign up quickly to unlock a world of incredible travel
+                experiences tailored just for you.
+                <a
+                  className="card-link"
+                  onClick={() => {
+                    setOpenModal(true);
+                  }}
+                >
+                  Get started
+                </a>
               </p>
-
-              <a href="#" className="card-link">
-                Get started
-              </a>
             </div>
           </li>
 
           <li>
             <div className="get-start-card">
               <div className="card-icon icon-2">
-                <CarOutline
+                <ImageOutline
                   color="hsl(204, 91%, 53%)"
                   title={""}
                   height="20px"
                   width="20px"
-                ></CarOutline>
+                ></ImageOutline>
               </div>
 
-              <h3 className="card-title">Tell us what car you want</h3>
+              <h3 className="card-title">Tell Us Your Ideal Destination</h3>
 
               <p className="card-text">
-                Various versions have evolved over the years, sometimes by
-                accident, sometimes on purpose
+                Share your desired destination and travel interests to help us
+                curate the perfect experience for you.
               </p>
             </div>
           </li>
@@ -59,19 +67,19 @@ const PlaceGetStarted = () => {
           <li>
             <div className="get-start-card">
               <div className="card-icon icon-3">
-                <PersonOutline
+                <DocumentTextOutline
                   color="hsl(204, 91%, 53%)"
                   title={""}
                   height="20px"
                   width="20px"
-                ></PersonOutline>
+                ></DocumentTextOutline>
               </div>
 
-              <h3 className="card-title">Match with seller</h3>
+              <h3 className="card-title">List Your Previous Locations</h3>
 
               <p className="card-text">
-                It to make a type specimen book. It has survived not only five
-                centuries, but also the leap into electronic
+                Tell us about the places you've explored and the remarkable
+                moments you've cherished.
               </p>
             </div>
           </li>
@@ -79,19 +87,21 @@ const PlaceGetStarted = () => {
           <li>
             <div className="get-start-card">
               <div className="card-icon icon-4">
-                <CardOutline
+                <AirplaneOutline
                   color="hsl(204, 91%, 53%)"
                   title={""}
                   height="20px"
                   width="20px"
-                ></CardOutline>
+                ></AirplaneOutline>
               </div>
 
-              <h3 className="card-title">Make a deal</h3>
+              <h3 className="card-title">
+                Dive In and Share Your Travel Reviews
+              </h3>
 
               <p className="card-text">
-                There are many variations of passages of Lorem available, but
-                the majority have suffered alteration
+                Start your travel journey by exploring our recommended
+                destinations and experiences.
               </p>
             </div>
           </li>

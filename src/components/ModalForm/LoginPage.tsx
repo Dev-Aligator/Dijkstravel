@@ -1,28 +1,21 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 import { googleIcon } from "../../assets";
+import { AxiosInstance } from "axios";
 
 interface LoginPageProps {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   setFormPage: React.Dispatch<React.SetStateAction<boolean>>;
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   authenticated: boolean;
+  client: AxiosInstance;
 }
-
-axios.defaults.xsrfCookieName = "csrftoken";
-axios.defaults.xsrfHeaderName = "X-CSRFToken";
-axios.defaults.withCredentials = true;
-
-const client = axios.create({
-  // baseURL: "http://localhost:8000",
-  baseURL: "https://aligator.pythonanywhere.com",
-});
 
 const LoginPage = ({
   setOpenModal,
   setFormPage,
   setAuthenticated,
-  authenticated,
+  // authenticated,
+  client,
 }: LoginPageProps) => {
   const [showPasswd, setShowPasswd] = useState(false);
 
@@ -45,33 +38,19 @@ const LoginPage = ({
       console.log(res);
       setAuthenticated(true);
       setOpenModal(false);
+      getUser();
     });
   };
 
-  useEffect(() => {
-    if (authenticated) {
-      client
-        .get("/api/get/user/")
-        .then(function (res) {
-          console.log(res);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    } else {
-      handleLogout();
-    }
-  }, [authenticated]);
-
-  const handleLogout = () => {
-    if (authenticated) {
-      client
-        .post("/api/logout/", { withCredentials: true })
-        .then(function (res) {
-          console.log(res);
-          setAuthenticated(false);
-        });
-    }
+  const getUser = () => {
+    client
+      .get("/api/get/user/")
+      .then(function (res) {
+        console.log(res);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (

@@ -92,7 +92,7 @@ const PlaceFeature = () => {
     <section className="section featured-car place-component" id="featured-car">
       <div className="container">
         <div className="title-wrapper">
-          <h2 className="h2 section-title">Featured cars</h2>
+          <h2 className="h2 section-title">Featured places</h2>
           <div className="centered-div search-form-div">
             <form onSubmit={handleSubmit} className="hero-form">
               <div className="input-wrapper">
@@ -123,7 +123,7 @@ const PlaceFeature = () => {
                 ></input>
               </div>
 
-              <div className="input-wrapper">
+              {/* <div className="input-wrapper">
                 <label htmlFor="input-3" className="input-label">
                   Make Year
                 </label>
@@ -135,7 +135,7 @@ const PlaceFeature = () => {
                   className="input-field"
                   placeholder="Add a minimal make year"
                 ></input>
-              </div>
+              </div> */}
 
               <button type="submit" className="btn">
                 Search

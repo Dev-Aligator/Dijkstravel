@@ -14,13 +14,33 @@ import {
   PlaceGetStarted,
 } from "./components";
 import styles from "./style";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import axios from "axios";
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
+axios.defaults.withCredentials = true;
+
+const client = axios.create({
+  // baseURL: "http://localhost:8000",
+  baseURL: "https://aligator.pythonanywhere.com",
+});
 
 const App = () => {
   const shouldRenderComponents = false;
   const [modalOpen, setModalOpen] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
+  useEffect(() => {
+    client
+      .get("/api/authenticate/", { withCredentials: true })
+      .then(function () {
+        setAuthenticated(true);
+      })
+      .catch(function () {
+        setAuthenticated(false);
+      });
+  }, []);
+
   return (
     <Routes>
       <Route
@@ -32,14 +52,16 @@ const App = () => {
                 setOpenModal={setModalOpen}
                 setAuthenticated={setAuthenticated}
                 authenticated={authenticated}
+                client={client}
               />
             )}
             <div className={`${styles.paddingX} ${styles.flexCenter}`}>
               <div className={`${styles.boxWidth}`}>
                 <Navbar
+                  setAuthenticated={setAuthenticated}
                   setOpenModal={setModalOpen}
                   authenticated={authenticated}
-                  setAuthenticated={setAuthenticated}
+                  client={client}
                 />
               </div>
             </div>
@@ -72,13 +94,24 @@ const App = () => {
         element={
           <main>
             <article>
-              <Navbar
-                setOpenModal={setModalOpen}
-                authenticated={authenticated}
-                setAuthenticated={setAuthenticated}
-              />
-              <PlaceGetStarted></PlaceGetStarted>
-              <PlaceFeature></PlaceFeature>
+              <div className="main-modal">
+                {modalOpen && (
+                  <Modal
+                    setOpenModal={setModalOpen}
+                    setAuthenticated={setAuthenticated}
+                    authenticated={authenticated}
+                    client={client}
+                  />
+                )}
+                <Navbar
+                  client={client}
+                  setOpenModal={setModalOpen}
+                  authenticated={authenticated}
+                  setAuthenticated={setAuthenticated}
+                />
+                <PlaceGetStarted setOpenModal={setModalOpen}></PlaceGetStarted>
+                <PlaceFeature></PlaceFeature>
+              </div>
             </article>
           </main>
         }

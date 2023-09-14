@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { close, logo, menu } from "../assets";
 import { navLinks } from "../constants";
+import { AxiosInstance } from "axios";
 
 interface NavbarProps {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   authenticated: boolean;
+  client: AxiosInstance;
 }
 
 const Navbar = ({
   setOpenModal,
   setAuthenticated,
   authenticated,
+  client,
 }: NavbarProps) => {
   const [toggle, setToggle] = useState(false);
 
@@ -30,8 +33,14 @@ const Navbar = ({
               authenticated ? (
                 <a
                   onClick={() => {
-                    setAuthenticated(false);
-                    setOpenModal(true);
+                    if (authenticated) {
+                      client
+                        .post("/api/logout/", { withCredentials: true })
+                        .then(function (res: any) {
+                          console.log(res);
+                          setAuthenticated(false);
+                        });
+                    }
                   }}
                 >
                   Logout
