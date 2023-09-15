@@ -46,8 +46,8 @@ const PlaceFeature = () => {
     // You can perform further actions with the keyword here, such as making an API request.
   };
 
-  const [current_latitude, setCurrentLatitude] = useState(0);
-  const [current_longitude, setCurrentLongitude] = useState(0);
+  const [current_latitude, setCurrentLatitude] = useState(10.8856441);
+  const [current_longitude, setCurrentLongitude] = useState(106.7818433);
   useEffect(() => {
     // Use a flag to track whether the geolocation has been fetched already
     let geolocationFetched = false;
@@ -99,7 +99,6 @@ const PlaceFeature = () => {
                 <label htmlFor="input-1" className="input-label">
                   Place, type, or brand
                 </label>
-
                 <input
                   type="text"
                   name="keyword"

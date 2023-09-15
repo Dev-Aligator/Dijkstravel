@@ -47,7 +47,7 @@ const App = () => {
         path="/"
         element={
           <div className="bg-primary w-full overflow-hidden main-modal">
-            {modalOpen && (
+            {modalOpen && !authenticated && (
               <Modal
                 setOpenModal={setModalOpen}
                 setAuthenticated={setAuthenticated}
@@ -95,7 +95,7 @@ const App = () => {
           <main>
             <article>
               <div className="main-modal">
-                {modalOpen && (
+                {modalOpen && !authenticated && (
                   <Modal
                     setOpenModal={setModalOpen}
                     setAuthenticated={setAuthenticated}
