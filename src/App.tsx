@@ -12,6 +12,7 @@ import {
   Modal,
   PlaceFeature,
   PlaceGetStarted,
+  PlaceModal,
 } from "./components";
 import styles from "./style";
 import { useEffect, useState } from "react";
@@ -29,6 +30,8 @@ const client = axios.create({
 const App = () => {
   const shouldRenderComponents = false;
   const [modalOpen, setModalOpen] = useState(false);
+  const [openPlaceModal, setOpenPlaceModal] = useState(false);
+
   const [authenticated, setAuthenticated] = useState(false);
   useEffect(() => {
     client
@@ -103,6 +106,12 @@ const App = () => {
                     client={client}
                   />
                 )}
+
+                {openPlaceModal && (
+                  <PlaceModal
+                    setOpenPlaceModal={setOpenPlaceModal}
+                  ></PlaceModal>
+                )}
                 <Navbar
                   client={client}
                   setOpenModal={setModalOpen}
@@ -110,7 +119,10 @@ const App = () => {
                   setAuthenticated={setAuthenticated}
                 />
                 <PlaceGetStarted setOpenModal={setModalOpen}></PlaceGetStarted>
-                <PlaceFeature></PlaceFeature>
+                <PlaceFeature
+                  client={client}
+                  setOpenPlaceModal={setOpenPlaceModal}
+                ></PlaceFeature>
               </div>
             </article>
           </main>

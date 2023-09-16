@@ -8,7 +8,7 @@ import {
 } from "react-ionicons";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { AxiosInstance } from "axios";
 import { Pagination } from "@mui/material";
 interface Place {
   googleMapId: string;
@@ -23,7 +23,12 @@ interface Place {
   distance_to_user: number;
 }
 
-const PlaceFeature = () => {
+interface PlaceFeatureProps {
+  client: AxiosInstance;
+  setOpenPlaceModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const PlaceFeature = ({ client, setOpenPlaceModal }: PlaceFeatureProps) => {
   const [places, setPlaces] = useState<Place[]>([]);
   let [loading, setLoading] = useState(true);
   const [keyword, setKeyword] = useState("");
@@ -61,12 +66,12 @@ const PlaceFeature = () => {
       });
     }
   }, []);
+  const baseUrl = "http://localhost:8000";
 
   useEffect(() => {
     setPlaces([]);
     // Define the API URL
-    const baseUrl = "https://aligator.pythonanywhere.com";
-    // const baseUrl = "http://localhost:8000";
+    // const baseUrl = "https://aligator.pythonanywhere.com";
     const apiUrl = `${baseUrl}/api/get/places/?page=${pageNumber}&keyword=${keyword}&location=${[
       current_latitude,
       current_longitude,
@@ -75,7 +80,7 @@ const PlaceFeature = () => {
     setLoading(true);
     //aligator.pythonanywhere.com
     // Fetch data from the Django API
-    http: axios
+    client
       .get(apiUrl)
       .then((response) => {
         // Set the fetched data in the state
@@ -88,6 +93,19 @@ const PlaceFeature = () => {
       });
   }, [pageNumber, keyword, current_latitude]);
 
+  const handleClick = (placeId: string) => {
+    const apiUrl = `${baseUrl}/api/get/place_details/?placeId=${placeId}`;
+    client
+      .get(apiUrl)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+
+    setOpenPlaceModal(true);
+  };
   return (
     <section className="section featured-car place-component" id="featured-car">
       <div className="container">
@@ -156,7 +174,12 @@ const PlaceFeature = () => {
         <ul className="featured-car-list">
           {places.map((place, index) => (
             <li key={place.googleMapId} id={String(index)}>
-              <div className="featured-car-card">
+              <div
+                className="featured-car-card"
+                onClick={() => {
+                  handleClick(place.googleMapId);
+                }}
+              >
                 <figure className="card-banner">
                   <img
                     src={place.photo}

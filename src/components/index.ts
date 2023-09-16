@@ -13,6 +13,7 @@ import Modal from "./Modal";
 import PlaceHero from "./Places/PlaceHero";
 import PlaceFeature from "./Places/PlaceFeature";
 import PlaceGetStarted from "./Places/PlaceGetStarted";
+import PlaceModal from "./Places/PlaceDetails";
 export {
   Billing,
   Business,
@@ -29,4 +30,5 @@ export {
   PlaceHero,
   PlaceFeature,
   PlaceGetStarted,
+  PlaceModal,
 };
