@@ -74,7 +74,7 @@ a {
   box-shadow: 0 0.1rem 0.2rem var(--box-shadow);
   height: 1000px;
   overflow-y: scroll;
-
+  margin-top: 300px;
 
 }
 
@@ -234,7 +234,13 @@ a {
 }
 
 .emojis__count {
-  margin-left: 0.3rem;
+  margin-left: 3rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.emojis__count svg {
+  margin-top: 2px;
 }
 
 .comment-shares__shares {
@@ -381,8 +387,7 @@ a {
   padding: 12px;
   font-size: 1.5rem;
   color: rgba(5, 5, 5, 0.8);
-  border-top-left-radius: 2rem;
-  border-bottom-left-radius: 2rem;
+  border-radius: 2rem;
   outline: none;
   flex: 1;
 }

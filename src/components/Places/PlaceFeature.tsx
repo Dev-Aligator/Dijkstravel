@@ -10,25 +10,21 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { useEffect, useState } from "react";
 import { AxiosInstance } from "axios";
 import { Pagination } from "@mui/material";
-interface Place {
-  googleMapId: string;
-  name: string;
-  address: string;
-  types: string;
-  location: string;
-  district: string;
-  rating: number | null;
-  totalRating: number | null;
-  photo: string | undefined;
-  distance_to_user: number;
-}
+import { Place, PlaceDetails } from "../Interface/InterfaceCollection";
 
 interface PlaceFeatureProps {
   client: AxiosInstance;
   setOpenPlaceModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setPlaceDetails: React.Dispatch<
+    React.SetStateAction<[Place | null, PlaceDetails | null]>
+  >;
 }
 
-const PlaceFeature = ({ client, setOpenPlaceModal }: PlaceFeatureProps) => {
+const PlaceFeature = ({
+  client,
+  setOpenPlaceModal,
+  setPlaceDetails,
+}: PlaceFeatureProps) => {
   const [places, setPlaces] = useState<Place[]>([]);
   let [loading, setLoading] = useState(true);
   const [keyword, setKeyword] = useState("");
@@ -98,13 +94,12 @@ const PlaceFeature = ({ client, setOpenPlaceModal }: PlaceFeatureProps) => {
     client
       .get(apiUrl)
       .then((response) => {
-        console.log(response.data);
+        setPlaceDetails([response.data["place"], response.data["details"]]);
+        setOpenPlaceModal(true);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-
-    setOpenPlaceModal(true);
   };
   return (
     <section className="section featured-car place-component" id="featured-car">

@@ -18,6 +18,11 @@ import styles from "./style";
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
+import {
+  Place,
+  PlaceDetails,
+} from "./components/Interface/InterfaceCollection";
+
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
@@ -33,6 +38,10 @@ const App = () => {
   const [openPlaceModal, setOpenPlaceModal] = useState(false);
 
   const [authenticated, setAuthenticated] = useState(false);
+
+  const [placeDetails, setPlaceDetails] = useState<
+    [Place | null, PlaceDetails | null]
+  >([null, null]);
   useEffect(() => {
     client
       .get("/api/authenticate/", { withCredentials: true })
@@ -110,6 +119,7 @@ const App = () => {
                 {openPlaceModal && (
                   <PlaceModal
                     setOpenPlaceModal={setOpenPlaceModal}
+                    placeDetails={placeDetails}
                   ></PlaceModal>
                 )}
                 <Navbar
@@ -122,6 +132,7 @@ const App = () => {
                 <PlaceFeature
                   client={client}
                   setOpenPlaceModal={setOpenPlaceModal}
+                  setPlaceDetails={setPlaceDetails}
                 ></PlaceFeature>
               </div>
             </article>

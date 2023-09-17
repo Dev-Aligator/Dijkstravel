@@ -1,9 +1,12 @@
 import "../../styles/PlaceDetailsModal.css";
-
+import { Place, PlaceDetails } from "../Interface/InterfaceCollection";
+import { Star } from "react-ionicons";
 interface PlaceModalProps {
   setOpenPlaceModal: React.Dispatch<React.SetStateAction<boolean>>;
+  placeDetails: [Place | null, PlaceDetails | null];
 }
-const PlaceModal = ({ setOpenPlaceModal }: PlaceModalProps) => {
+const PlaceModal = ({ setOpenPlaceModal, placeDetails }: PlaceModalProps) => {
+  console.log(placeDetails);
   return (
     <div className="real-container">
       <div
@@ -20,13 +23,13 @@ const PlaceModal = ({ setOpenPlaceModal }: PlaceModalProps) => {
                 <div className="header__left">
                   <a href="#">
                     <img
-                      src="./images/author-pic.jpg"
+                      src={placeDetails[0]?.photo}
                       className="post__author-pic"
                     />
                   </a>
                   <div className="post__author author">
                     <span className="author__name">
-                      <a href="#">Mark Zuckerberg</a>
+                      <a href="#">{placeDetails[0]?.name}</a>
                     </span>
                     <i className="author__verified"></i>
                   </div>
@@ -49,26 +52,32 @@ const PlaceModal = ({ setOpenPlaceModal }: PlaceModalProps) => {
                   big step forward for VR. I've been using mine all summer and
                   I'm looking forward to more of you experiencing this.
                 </p>
-                <img src="images/post-pic.jpg" className="content__image" />
+                <img
+                  src={placeDetails[0]?.photo.replace(
+                    "s1600-w400",
+                    "s1600-w800"
+                  )}
+                  className="content__image"
+                />
               </div>
               {/* <!-- POST FOOTER --> */}
               <div className="post__footer footer">
                 {/* <!-- Reactions --> */}
                 <div className="footer__reactions reactions">
                   <div className="reactions__emojis emojis">
-                    <img src="images/like.svg" className="emojis__like" />
-                    <img src="images/haha.svg" className="emojis__haha" />
-                    <img src="images/love.svg" className="emojis__love" />
                     <span className="emojis__count">
-                      <a href="#">193K</a>
+                      <a href="#">193 </a>
+                      <Star
+                        color={"#f8e45c"}
+                        title={""}
+                        height="25px"
+                        width="25px"
+                      ></Star>
                     </span>
                   </div>
                   <div className="reactions__comments-shares comment-shares">
                     <span className="comment-shares__comments">
-                      <a href="#">50K Comments</a>
-                    </span>
-                    <span className="comment-shares__shares">
-                      <a href="#">5.4K Shares</a>
+                      <a href="#">50K Reviews</a>
                     </span>
                   </div>
                 </div>
@@ -78,10 +87,10 @@ const PlaceModal = ({ setOpenPlaceModal }: PlaceModalProps) => {
                     <i className="like__icon"></i>Like
                   </span>
                   <span className="buttons__comment comment">
-                    <i className="comment__icon"></i>Comment
+                    <i className="comment__icon"></i>Review
                   </span>
                   <span className="buttons__share share">
-                    <i className="share__icon"></i>Share
+                    <i className="share__icon"></i>Save
                   </span>
                 </div>
                 {/* <!-- Comments --> */}
@@ -101,23 +110,9 @@ const PlaceModal = ({ setOpenPlaceModal }: PlaceModalProps) => {
                     <div className="box__bar bar">
                       <input
                         type="text"
-                        placeholder="Write a comment..."
+                        placeholder="Write a review..."
                         className="bar__input"
                       />
-                      <div className="bar__emojis emojis">
-                        <span className="emojis__insert insert">
-                          <i className="insert__emoji"></i>
-                        </span>
-                        <span className="emojis__attach attach">
-                          <i className="attach__emoji"></i>
-                        </span>
-                        <span className="emojis__gif gif">
-                          <i className="gif__emoji"></i>
-                        </span>
-                        <span className="emojis__sticker">
-                          <i className="sticker__emoji"></i>
-                        </span>
-                      </div>
                     </div>
                   </div>
                   {/* <!-- Friend comment --> */}
