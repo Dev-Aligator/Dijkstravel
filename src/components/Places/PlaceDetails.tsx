@@ -17,19 +17,50 @@ const PlaceModal = ({
 }: PlaceModalProps) => {
   const handleUpdateLikes = (
     reviewId: string,
-    setReviewLikes: React.Dispatch<React.SetStateAction<number>>,
-    reviewLikes: number
+    setReviewLikes: React.Dispatch<React.SetStateAction<number>>
   ) => {
     client
-      .post(`/api/post/update_review_likes/?reviewId=${reviewId}`, {
-        withCredentials: true,
-      })
-      .then(function () {
-        setReviewLikes(reviewLikes + 1);
+      .get(`/api/post/update_review_likes/?reviewId=${reviewId}`)
+      .then(function (res) {
+        setReviewLikes(res.data["likes"]);
       })
       .catch(function (error) {
         console.log(error);
       });
+  };
+
+  const [formData, setFormData] = useState({
+    reviewText: "", // Initialize the reviewText field
+  });
+
+  const handleInputChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    // You can access the form data in the formData object
+    try {
+      // Send a POST request to the specified API endpoint
+      await client.post(`/api/post/add_review/`, formData);
+
+      // Optionally, reset the form after successful submission
+      setFormData({
+        reviewText: "",
+      });
+
+      // Handle success or redirect to another page if needed
+    } catch (error) {
+      // Handle errors, e.g., show an error message to the user
+      console.error("Error:", error);
+    }
+
+    // Now you can use reviewText as needed, for example, send it to an API
   };
   return (
     <div className="real-container">
@@ -120,7 +151,10 @@ const PlaceModal = ({
                 {/* <!-- Comments --> */}
                 <div className="footer__comments comments">
                   {/* <!-- Comments filter --> */}
-                  <div className="comments__filter filter">
+                  <div
+                    className="comments__filter filter"
+                    onClick={handleSubmit}
+                  >
                     Most Relevant<i className="filter__icon"></i>
                   </div>
                   {/* <!-- Comments box --> */}
@@ -131,8 +165,10 @@ const PlaceModal = ({
                     <div className="box__bar bar">
                       <input
                         type="text"
+                        name="reviewText"
                         placeholder="Write a review..."
                         className="bar__input"
+                        onChange={handleInputChange}
                       />
                     </div>
                   </div>
@@ -180,8 +216,7 @@ const PlaceModal = ({
                                   onClick={() => {
                                     handleUpdateLikes(
                                       review.id,
-                                      setReviewLikes,
-                                      reviewLikes
+                                      setReviewLikes
                                     );
                                   }}
                                   className="links__like"
