@@ -513,6 +513,7 @@ a {
   box-shadow: 0 0.1rem 0.2rem var(--box-shadow);
   border-radius: 1rem;
   cursor: pointer;
+  gap: 5px;
 }
 
 .reactions__emojis {
@@ -622,4 +623,9 @@ a {
 
 .more-comments__count {
   font-weight: 400;
+}
+
+.comment_section {
+  display: grid;
+  grid-gap: 40px;
 }

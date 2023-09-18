@@ -21,6 +21,7 @@ import axios from "axios";
 import {
   Place,
   PlaceDetails,
+  Review,
 } from "./components/Interface/InterfaceCollection";
 
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -28,8 +29,8 @@ axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
 
 const client = axios.create({
-  // baseURL: "http://localhost:8000",
-  baseURL: "https://aligator.pythonanywhere.com",
+  baseURL: "http://localhost:8000",
+  // baseURL: "https://aligator.pythonanywhere.com",
 });
 
 const App = () => {
@@ -40,8 +41,8 @@ const App = () => {
   const [authenticated, setAuthenticated] = useState(false);
 
   const [placeDetails, setPlaceDetails] = useState<
-    [Place | null, PlaceDetails | null]
-  >([null, null]);
+    [Place | null, PlaceDetails | null, Review[]]
+  >([null, null, []]);
   useEffect(() => {
     client
       .get("/api/authenticate/", { withCredentials: true })
@@ -120,6 +121,7 @@ const App = () => {
                   <PlaceModal
                     setOpenPlaceModal={setOpenPlaceModal}
                     placeDetails={placeDetails}
+                    client={client}
                   ></PlaceModal>
                 )}
                 <Navbar

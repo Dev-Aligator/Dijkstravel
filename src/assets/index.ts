@@ -25,7 +25,8 @@ import people02 from "./people02.png";
 import people03 from "./people03.png";
 import googleIcon from "./google_icon.svg";
 import facebookIcon from "./facebook_icon.svg";
-
+import likeIcon from "./like.svg";
+import userDefaultAvatat from "./user_default_avatar.png";
 export {
   airbnb,
   bill,
@@ -54,4 +55,6 @@ export {
   people03,
   googleIcon,
   facebookIcon,
+  likeIcon,
+  userDefaultAvatat,
 };

@@ -10,13 +10,13 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { useEffect, useState } from "react";
 import { AxiosInstance } from "axios";
 import { Pagination } from "@mui/material";
-import { Place, PlaceDetails } from "../Interface/InterfaceCollection";
+import { Place, PlaceDetails, Review } from "../Interface/InterfaceCollection";
 
 interface PlaceFeatureProps {
   client: AxiosInstance;
   setOpenPlaceModal: React.Dispatch<React.SetStateAction<boolean>>;
   setPlaceDetails: React.Dispatch<
-    React.SetStateAction<[Place | null, PlaceDetails | null]>
+    React.SetStateAction<[Place | null, PlaceDetails | null, Review[]]>
   >;
 }
 
@@ -94,7 +94,11 @@ const PlaceFeature = ({
     client
       .get(apiUrl)
       .then((response) => {
-        setPlaceDetails([response.data["place"], response.data["details"]]);
+        setPlaceDetails([
+          response.data["place"],
+          response.data["details"],
+          response.data["reviews"],
+        ]);
         setOpenPlaceModal(true);
       })
       .catch((error) => {

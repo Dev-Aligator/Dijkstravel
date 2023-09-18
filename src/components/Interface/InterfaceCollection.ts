@@ -36,3 +36,18 @@ export interface PlaceDetails {
   user_ratings_total: number | null;
 }
 
+export interface Review {
+  id: string;
+  author_id?: string | null;
+  place_id?: string | null;
+  author_name: string;
+  rating: number | null;  // Using union type for rating choices
+  relative_time_description: string;
+  time: number;
+  language?: string | null;
+  original_language?: string | null;
+  profile_photo_url?: string | null;
+  text?: string | null;
+  translated: boolean;
+  likes: number;
+}

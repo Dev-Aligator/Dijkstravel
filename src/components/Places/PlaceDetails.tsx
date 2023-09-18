@@ -1,12 +1,36 @@
 import "../../styles/PlaceDetailsModal.css";
-import { Place, PlaceDetails } from "../Interface/InterfaceCollection";
+import { Place, PlaceDetails, Review } from "../Interface/InterfaceCollection";
 import { Star } from "react-ionicons";
+import { likeIcon, userDefaultAvatat } from "../../assets";
+import { AxiosInstance } from "axios";
+import { useState } from "react";
+
 interface PlaceModalProps {
   setOpenPlaceModal: React.Dispatch<React.SetStateAction<boolean>>;
-  placeDetails: [Place | null, PlaceDetails | null];
+  placeDetails: [Place | null, PlaceDetails | null, Review[]];
+  client: AxiosInstance;
 }
-const PlaceModal = ({ setOpenPlaceModal, placeDetails }: PlaceModalProps) => {
-  console.log(placeDetails);
+const PlaceModal = ({
+  setOpenPlaceModal,
+  placeDetails,
+  client,
+}: PlaceModalProps) => {
+  const handleUpdateLikes = (
+    reviewId: string,
+    setReviewLikes: React.Dispatch<React.SetStateAction<number>>,
+    reviewLikes: number
+  ) => {
+    client
+      .post(`/api/post/update_review_likes/?reviewId=${reviewId}`, {
+        withCredentials: true,
+      })
+      .then(function () {
+        setReviewLikes(reviewLikes + 1);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   return (
     <div className="real-container">
       <div
@@ -102,10 +126,7 @@ const PlaceModal = ({ setOpenPlaceModal, placeDetails }: PlaceModalProps) => {
                   {/* <!-- Comments box --> */}
                   <div className="comments__box box">
                     <div className="box__profile profile">
-                      <img
-                        src="images/profile-pic.jpg"
-                        className="profile__pic"
-                      />
+                      <img src={userDefaultAvatat} className="profile__pic" />
                     </div>
                     <div className="box__bar bar">
                       <input
@@ -116,120 +137,72 @@ const PlaceModal = ({ setOpenPlaceModal, placeDetails }: PlaceModalProps) => {
                     </div>
                   </div>
                   {/* <!-- Friend comment --> */}
-                  <div className="comments__friend-comment friend-comment">
-                    <img
-                      src="images/friend-pic.jpg"
-                      className="friend-comment__pic"
-                    />
-                    <div className="friend-comment__comment comment">
-                      <a href="#" className="comment__author">
-                        Justin Miller
-                      </a>
-                      <span className="comment__content">
-                        It sure feels different to see you on a different color
-                        T-shirt, but still, technology advances everytime and we
-                        are glad that you're a part of it.
-                      </span>
-                      <div className="comment__reactions reactions">
-                        <img
-                          src="images/like.svg"
-                          className="reactions__emojis reactions__like"
-                        />
-                        <img
-                          src="images/haha.svg"
-                          className="reactions__emojis reactions__haha"
-                        />
-                        <img
-                          src="images/love.svg"
-                          className="reactions__emojis reactions__love"
-                        />
-                        <span className="reactions__count">70</span>
-                      </div>
-                      <div className="comment__links links">
-                        <span>
-                          <a href="#" className="links__like">
-                            Like
-                          </a>{" "}
-                          &#183;
-                        </span>
-                        <span>
-                          <a href="#" className="links__reply">
-                            Reply
-                          </a>{" "}
-                          &#183;
-                        </span>
-                        <span>
-                          <a href="#" className="links__date">
-                            16w
-                          </a>
-                        </span>
-                      </div>
-                      <div className="comment__replies replies">
-                        <i className="replies__emoji"></i>
-                        <span className="replies__count">17 Replies</span>
-                      </div>
-                    </div>
-                    <div className="friend-comment__options options">
-                      <i className="options__icon options__comment"></i>
-                    </div>
-                  </div>
+                  <div className="comment_section">
+                    {placeDetails[2].map((review, i) => {
+                      const [reviewLikes, setReviewLikes] = useState(
+                        review.likes
+                      );
+                      return (
+                        <div
+                          className={`comments__friend-comment friend-comment comment-${i}`}
+                        >
+                          <img
+                            src={
+                              review.profile_photo_url
+                                ? review.profile_photo_url
+                                : ""
+                            }
+                            className="friend-comment__pic"
+                          />
+                          <div className="friend-comment__comment comment">
+                            <a href="#" className="comment__author">
+                              {review.author_name}
+                            </a>
+                            <span className="comment__content">
+                              {review.text}
+                            </span>
 
-                  <div className="comments__friend-comment friend-comment">
-                    <img
-                      src="images/friend-pic.jpg"
-                      className="friend-comment__pic"
-                    />
-                    <div className="friend-comment__comment comment">
-                      <a href="#" className="comment__author">
-                        Justin Miller
-                      </a>
-                      <span className="comment__content">
-                        It sure feels different to see you on a different color
-                        T-shirt, but still, technology advances everytime and we
-                        are glad that you're a part of it.
-                      </span>
-                      <div className="comment__reactions reactions">
-                        <img
-                          src="images/like.svg"
-                          className="reactions__emojis reactions__like"
-                        />
-                        <img
-                          src="images/haha.svg"
-                          className="reactions__emojis reactions__haha"
-                        />
-                        <img
-                          src="images/love.svg"
-                          className="reactions__emojis reactions__love"
-                        />
-                        <span className="reactions__count">70</span>
-                      </div>
-                      <div className="comment__links links">
-                        <span>
-                          <a href="#" className="links__like">
-                            Like
-                          </a>{" "}
-                          &#183;
-                        </span>
-                        <span>
-                          <a href="#" className="links__reply">
-                            Reply
-                          </a>{" "}
-                          &#183;
-                        </span>
-                        <span>
-                          <a href="#" className="links__date">
-                            16w
-                          </a>
-                        </span>
-                      </div>
-                      <div className="comment__replies replies">
-                        <i className="replies__emoji"></i>
-                        <span className="replies__count">17 Replies</span>
-                      </div>
-                    </div>
-                    <div className="friend-comment__options options">
-                      <i className="options__icon options__comment"></i>
-                    </div>
+                            {review.likes != 0 && (
+                              <div className="comment__reactions reactions">
+                                <img
+                                  src={likeIcon}
+                                  className="reactions__emojis reactions__like"
+                                />
+                                <span className="reactions__count">
+                                  {reviewLikes}
+                                </span>
+                              </div>
+                            )}
+
+                            <div className="comment__links links">
+                              <span>
+                                <a
+                                  onClick={() => {
+                                    handleUpdateLikes(
+                                      review.id,
+                                      setReviewLikes,
+                                      reviewLikes
+                                    );
+                                  }}
+                                  className="links__like"
+                                >
+                                  Like
+                                </a>{" "}
+                                &#183;
+                              </span>
+                              <span>
+                                <a href="#" className="links__date">
+                                  {review.relative_time_description}
+                                </a>
+                              </span>
+                            </div>
+                          </div>
+                          <div className="friend-comment__options options">
+                            <i className="options__icon options__comment"></i>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                   {/* <!-- More comments --> */}
                   <div className="comments__more-comments more-comments">
