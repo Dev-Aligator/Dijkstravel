@@ -121,6 +121,7 @@ const App = () => {
                   <PlaceModal
                     setOpenPlaceModal={setOpenPlaceModal}
                     placeDetails={placeDetails}
+                    setPlaceDetails={setPlaceDetails}
                     client={client}
                   ></PlaceModal>
                 )}

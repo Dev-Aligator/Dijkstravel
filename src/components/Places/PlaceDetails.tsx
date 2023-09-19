@@ -8,11 +8,15 @@ import { useState } from "react";
 interface PlaceModalProps {
   setOpenPlaceModal: React.Dispatch<React.SetStateAction<boolean>>;
   placeDetails: [Place | null, PlaceDetails | null, Review[]];
+  setPlaceDetails: React.Dispatch<
+    React.SetStateAction<[Place | null, PlaceDetails | null, Review[]]>
+  >;
   client: AxiosInstance;
 }
 const PlaceModal = ({
   setOpenPlaceModal,
   placeDetails,
+  setPlaceDetails,
   client,
 }: PlaceModalProps) => {
   const handleUpdateLikes = (
@@ -43,11 +47,19 @@ const PlaceModal = ({
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    const dataToSend = {
+      reviewText: formData.reviewText,
+      placeId: placeDetails[0]?.googleMapId,
+    };
 
     // You can access the form data in the formData object
     try {
       // Send a POST request to the specified API endpoint
-      await client.post(`/api/post/add_review/`, formData);
+      await client
+        .post(`/api/post/add_review/`, dataToSend)
+        .then(function (res: any) {
+          console.log(res.data);
+        });
 
       // Optionally, reset the form after successful submission
       setFormData({
