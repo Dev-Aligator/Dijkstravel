@@ -7,7 +7,8 @@ import {
   DocumentTextOutline,
 } from "react-ionicons";
 import ClipLoader from "react-spinners/ClipLoader";
-import { useEffect, useState } from "react";
+import PulseLoader from "react-spinners/PulseLoader";
+import { useEffect, useState, CSSProperties } from "react";
 import { AxiosInstance } from "axios";
 import { Pagination } from "@mui/material";
 import { Place, PlaceDetails, Review } from "../Interface/InterfaceCollection";
@@ -20,6 +21,15 @@ interface PlaceFeatureProps {
   >;
 }
 
+const override: CSSProperties = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  zIndex: "9999",
+  // opacity: "1",
+};
+
 const PlaceFeature = ({
   client,
   setOpenPlaceModal,
@@ -29,7 +39,7 @@ const PlaceFeature = ({
   let [loading, setLoading] = useState(true);
   const [keyword, setKeyword] = useState("");
   const [totalPage, setTotalPage] = useState(1);
-
+  const [clickedDiv, setClickedDiv] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
   const handleChange = (event: any, value: number) => {
     setPageNumber(value);
@@ -90,6 +100,7 @@ const PlaceFeature = ({
   }, [pageNumber, keyword, current_latitude]);
 
   const handleClick = (placeId: string) => {
+    setClickedDiv(placeId);
     const apiUrl = `${baseUrl}/api/get/place_details/?placeId=${placeId}`;
     client
       .get(apiUrl)
@@ -100,6 +111,7 @@ const PlaceFeature = ({
           response.data["reviews"],
         ]);
         setOpenPlaceModal(true);
+        setClickedDiv("");
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -174,11 +186,24 @@ const PlaceFeature = ({
           {places.map((place, index) => (
             <li key={place.googleMapId} id={String(index)}>
               <div
-                className="featured-car-card"
+                className={`featured-car-card ${
+                  clickedDiv === place.googleMapId ? "clicked" : ""
+                }`}
                 onClick={() => {
                   handleClick(place.googleMapId);
                 }}
               >
+                {clickedDiv === place.googleMapId && (
+                  <PulseLoader
+                    color="#36d7b7"
+                    loading={true}
+                    cssOverride={override}
+                    size={20}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                  />
+                )}
+
                 <figure className="card-banner">
                   <img
                     src={place.photo}

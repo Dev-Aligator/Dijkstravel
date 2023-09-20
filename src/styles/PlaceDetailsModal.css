@@ -5,7 +5,7 @@
 
 :root {
   --white: #fff;
-  --background: #f0f2f5;
+  --background-details: #f0f2f5;
   --hover-shadow: #f2f2f2;
   --hover-shadow-2: #e4e6e9;
   --border: #ccc;
@@ -74,7 +74,7 @@ a {
   box-shadow: 0 0.1rem 0.2rem var(--box-shadow);
   height: 1000px;
   overflow-y: scroll;
-  margin-top: 300px;
+  /* margin-top: 50px; */
 
 }
 
@@ -382,7 +382,7 @@ a {
 
 .bar__input {
   width: 100%;
-  background: var(--background);
+  background: var(--background-details);
   border: none;
   padding: 12px;
   font-size: 1.5rem;
@@ -404,7 +404,7 @@ a {
   display: flex;
   align-items: center;
   height: 4.16rem;
-  background: var(--background);
+  background: var(--background-details);
   padding-right: 1.2rem;
   border-top-right-radius: 2rem;
   border-bottom-right-radius: 2rem;
@@ -482,7 +482,7 @@ a {
   position: relative;
   margin-right: 0.5rem;
   padding: 0.8rem 1.2rem;
-  background: var(--background);
+  background: var(--background-details);
   border-radius: 1.5rem;
 }
 
