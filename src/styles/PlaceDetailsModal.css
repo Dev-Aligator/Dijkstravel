@@ -177,7 +177,7 @@ a {
  ****************/
 
 .content__paragraph {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   padding: 0.8rem 1.6rem 0.8rem 1.6rem;
 }
 
@@ -203,7 +203,7 @@ a {
   justify-content: space-between;
   padding: 0.8rem 1.6rem;
   color: var(--reactions-links);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 .reactions__emojis {
@@ -272,7 +272,7 @@ a {
   flex: 1;
   height: 3.5rem;
   margin: 0.2rem 0;
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   font-weight: 600;
   border-radius: 0.5rem;
   color: var(--reactions-links);
@@ -314,7 +314,7 @@ a {
 /* POST COMMENTS */
 .footer__comments {
   padding: 0.8rem 1.2rem;
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   font-weight: 600;
   text-align: right;
   color: var(--reactions-links);
@@ -385,9 +385,10 @@ a {
   background: var(--background-details);
   border: none;
   padding: 12px;
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   color: rgba(5, 5, 5, 0.8);
-  border-radius: 2rem;
+  border-top-left-radius: 1.5rem;
+  border-bottom-left-radius: 1.5rem;
   outline: none;
   flex: 1;
 }
@@ -400,14 +401,18 @@ a {
   opacity: 0.6;
 }
 
+.bar__input:focus {
+  outline: none;
+}
+
 .bar__emojis {
   display: flex;
   align-items: center;
-  height: 4.16rem;
+  height: 3.227rem;
   background: var(--background-details);
   padding-right: 1.2rem;
-  border-top-right-radius: 2rem;
-  border-bottom-right-radius: 2rem;
+  border-top-right-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
 }
 
 .emojis__insert,
@@ -419,6 +424,7 @@ a {
   line-height: 0.5rem;
   margin-left: 0.3rem;
   cursor: pointer;
+  text-align: center;
 }
 
 .emojis__insert:hover,
@@ -428,33 +434,18 @@ a {
   background: var(--hover-shadow-2);
 }
 
-.insert__emoji,
-.attach__emoji,
-.gif__emoji,
-.sticker__emoji {
+.emojis__insert.active {
+  background: var(--hover-shadow-2);
+}
+
+
+
+.review__star {
   width: 1.6rem;
   height: 1.6rem;
   display: inline-block;
-  background-image: url("../images/icons-list-3.png");
-  background-size: 26px 774px;
   background-repeat: no-repeat;
-  opacity: 0.6;
-}
-
-.insert__emoji {
-  background-position: 0 -328px;
-}
-
-.attach__emoji {
-  background-position: 0 -274px;
-}
-
-.gif__emoji {
-  background-position: 0 -346px;
-}
-
-.sticker__emoji {
-  background-position: 0 -400px;
+  /* opacity: 0.6; */
 }
 
 /* Friends comments */
@@ -483,13 +474,14 @@ a {
   margin-right: 0.5rem;
   padding: 0.8rem 1.2rem;
   background: var(--background-details);
-  border-radius: 1.5rem;
+  border-radius: 1.15rem;
+  min-width: 170px;
 }
 
 .comment__author {
   align-self: flex-start;
   color: var(--black2);
-  font-size: 1.35rem;
+  font-size: 1.15rem;
 }
 
 .comment__author:hover {
@@ -497,7 +489,7 @@ a {
 }
 
 .comment__content {
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   font-weight: 400;
   color: var(--black2);
 }
@@ -506,7 +498,7 @@ a {
   display: flex;
   align-items: center;
   position: absolute;
-  bottom: -1.5rem;
+  bottom: -1.15rem;
   right: 0;
   padding: 0.2rem 0.5rem;
   background: var(--white);
@@ -538,7 +530,7 @@ a {
 .reactions__count {
   position: relative;
   right: 0.1rem;
-  font-size: 1.32rem;
+  font-size: 1.2rem;
   font-weight: 400;
   color: var(--reactions-links);
 }
@@ -560,7 +552,6 @@ a {
   height: 1.6rem;
   background-position: 0 -36.8rem;
   background-size: 7.4rem 44.6rem;
-  background-image: url("../images/icons-list-5.png");
 }
 
 .comment__links,

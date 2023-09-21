@@ -41,8 +41,8 @@ const App = () => {
   const [authenticated, setAuthenticated] = useState(false);
 
   const [placeDetails, setPlaceDetails] = useState<
-    [Place | null, PlaceDetails | null, Review[]]
-  >([null, null, []]);
+    [Place | null, PlaceDetails | null, Review[], String]
+  >([null, null, [], ""]);
   useEffect(() => {
     client
       .get("/api/authenticate/", { withCredentials: true })
@@ -121,7 +121,6 @@ const App = () => {
                   <PlaceModal
                     setOpenPlaceModal={setOpenPlaceModal}
                     placeDetails={placeDetails}
-                    setPlaceDetails={setPlaceDetails}
                     client={client}
                   ></PlaceModal>
                 )}

@@ -16,8 +16,6 @@ export interface PlaceDetails {
   current_opening_hours: string | null;
   formatted_phone_number: string | null;
   international_phone_number: string | null;
-  opening_hours: string | null;
-  secondary_opening_hours: string | null;
   website: string | null;
   curbside_pickup: boolean;
   delivery: boolean;
@@ -34,6 +32,8 @@ export interface PlaceDetails {
   serves_wine: boolean;
   takeout: boolean;
   user_ratings_total: number | null;
+  totalReviews: number | null;
+
 }
 
 export interface Review {

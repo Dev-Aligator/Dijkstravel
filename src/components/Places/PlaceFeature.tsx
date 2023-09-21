@@ -17,7 +17,7 @@ interface PlaceFeatureProps {
   client: AxiosInstance;
   setOpenPlaceModal: React.Dispatch<React.SetStateAction<boolean>>;
   setPlaceDetails: React.Dispatch<
-    React.SetStateAction<[Place | null, PlaceDetails | null, Review[]]>
+    React.SetStateAction<[Place | null, PlaceDetails | null, Review[], String]>
   >;
 }
 
@@ -99,16 +99,20 @@ const PlaceFeature = ({
       });
   }, [pageNumber, keyword, current_latitude]);
 
-  const handleClick = (placeId: string) => {
+  const handleClick = (placeId: string, totalReviews: number | null) => {
     setClickedDiv(placeId);
     const apiUrl = `${baseUrl}/api/get/place_details/?placeId=${placeId}`;
     client
       .get(apiUrl)
       .then((response) => {
+        const placeDetailsData: PlaceDetails = response.data["details"];
+        placeDetailsData.totalReviews = totalReviews;
+
         setPlaceDetails([
           response.data["place"],
-          response.data["details"],
+          placeDetailsData,
           response.data["reviews"],
+          response.data["openingHours"],
         ]);
         setOpenPlaceModal(true);
         setClickedDiv("");
@@ -199,7 +203,7 @@ const PlaceFeature = ({
                   clickedDiv === place.googleMapId ? "clicked" : ""
                 }`}
                 onClick={() => {
-                  handleClick(place.googleMapId);
+                  handleClick(place.googleMapId, place.totalRating);
                 }}
               >
                 {clickedDiv === place.googleMapId && (

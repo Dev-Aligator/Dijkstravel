@@ -7,16 +7,12 @@ import { useState } from "react";
 
 interface PlaceModalProps {
   setOpenPlaceModal: React.Dispatch<React.SetStateAction<boolean>>;
-  placeDetails: [Place | null, PlaceDetails | null, Review[]];
-  setPlaceDetails: React.Dispatch<
-    React.SetStateAction<[Place | null, PlaceDetails | null, Review[]]>
-  >;
+  placeDetails: [Place | null, PlaceDetails | null, Review[], String];
   client: AxiosInstance;
 }
 const PlaceModal = ({
   setOpenPlaceModal,
   placeDetails,
-  // setPlaceDetails,
   client,
 }: PlaceModalProps) => {
   const handleUpdateLikes = (
@@ -37,6 +33,9 @@ const PlaceModal = ({
     reviewText: "", // Initialize the reviewText field
   });
 
+  const [newReview, setNewReview] = useState<Review | null>(null);
+  const stars = Array.from({ length: 5 }, (_, i) => i);
+  const [selectedStar, setSelectedStar] = useState(5);
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setFormData({
@@ -45,34 +44,46 @@ const PlaceModal = ({
     });
   };
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     const dataToSend = {
       reviewText: formData.reviewText,
+      star: selectedStar,
       placeId: placeDetails[0]?.googleMapId,
     };
 
-    // You can access the form data in the formData object
     try {
-      // Send a POST request to the specified API endpoint
-      await client
-        .post(`/api/post/add_review/`, dataToSend)
-        .then(function (res: any) {
-          console.log(res.data);
-        });
+      const res = await client.post(`/api/post/add_review/`, dataToSend);
+      setNewReview(res.data["new_review"]);
 
-      // Optionally, reset the form after successful submission
-      setFormData({
-        reviewText: "",
-      });
-
-      // Handle success or redirect to another page if needed
+      // Optionally, you can reset the reviewText in your form after successful submission
+      setFormData({ reviewText: "" });
     } catch (error) {
-      // Handle errors, e.g., show an error message to the user
-      console.error("Error:", error);
+      console.error(error);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  };
+
+  const ShortenNumberOfReview = (
+    totalReviews: number | null | undefined
+  ): string => {
+    if (totalReviews === null || totalReviews == undefined) {
+      return "0";
     }
 
-    // Now you can use reviewText as needed, for example, send it to an API
+    if (totalReviews < 1000) {
+      return totalReviews.toString();
+    } else if (totalReviews < 1000000) {
+      const thousands = Math.floor(totalReviews / 1000);
+      return `${thousands}K`;
+    } else {
+      const millions = Math.floor(totalReviews / 1000000);
+      return `${millions}M`;
+    }
   };
   return (
     <div className="real-container">
@@ -101,7 +112,7 @@ const PlaceModal = ({
                     <i className="author__verified"></i>
                   </div>
                   <span className="post__date">
-                    <a href="#">October 13, 2020</a>
+                    <a href="#">{placeDetails[3]}</a>
                   </span>
                   <span className="post__date-privacy-separator">&nbsp;·</span>
                   <i className="post__privacy"></i>
@@ -127,7 +138,7 @@ const PlaceModal = ({
                   className="content__image"
                 />
               </div>
-              1{/* <!-- POST FOOTER --> */}
+              {/* <!-- POST FOOTER --> */}
               <div className="post__footer footer">
                 {/* <!-- Reactions --> */}
                 <div className="footer__reactions reactions">
@@ -144,15 +155,15 @@ const PlaceModal = ({
                   </div>
                   <div className="reactions__comments-shares comment-shares">
                     <span className="comment-shares__comments">
-                      <a href="#">50K Reviews</a>
+                      <a href="#">
+                        {ShortenNumberOfReview(placeDetails[1]?.totalReviews)}{" "}
+                        Reviews
+                      </a>
                     </span>
                   </div>
                 </div>
                 {/* <!-- Buttons --> */}
                 <div className="footer__buttons buttons">
-                  <span className="buttons__like like">
-                    <i className="like__icon"></i>Like
-                  </span>
                   <span className="buttons__comment comment">
                     <i className="comment__icon"></i>Review
                   </span>
@@ -163,10 +174,7 @@ const PlaceModal = ({
                 {/* <!-- Comments --> */}
                 <div className="footer__comments comments">
                   {/* <!-- Comments filter --> */}
-                  <div
-                    className="comments__filter filter"
-                    onClick={handleSubmit}
-                  >
+                  <div className="comments__filter filter">
                     Most Relevant<i className="filter__icon"></i>
                   </div>
                   {/* <!-- Comments box --> */}
@@ -181,11 +189,94 @@ const PlaceModal = ({
                         placeholder="Write a review..."
                         className="bar__input"
                         onChange={handleInputChange}
+                        onKeyDown={handleKeyPress}
                       />
+                      <div className="bar__emojis emojis">
+                        {stars.map((index) => (
+                          <span
+                            className={
+                              index + 1 == selectedStar
+                                ? "emojis__insert active insert"
+                                : "emojis__insert insert"
+                            }
+                          >
+                            <i
+                              className="review__star"
+                              onClick={() => {
+                                setSelectedStar(index + 1);
+                              }}
+                            >
+                              {index + 1}
+                              <Star
+                                color={"#f8e45c"}
+                                title={""}
+                                height="15px"
+                                width="15px"
+                              ></Star>
+                            </i>
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                   {/* <!-- Friend comment --> */}
                   <div className="comment_section">
+                    {newReview && (
+                      <div
+                        className={`comments__friend-comment friend-comment comment-new}`}
+                      >
+                        <img
+                          src={
+                            newReview.profile_photo_url
+                              ? newReview.profile_photo_url
+                              : ""
+                          }
+                          className="friend-comment__pic"
+                        />
+                        <div className="friend-comment__comment comment">
+                          <a href="#" className="comment__author">
+                            {newReview.author_name}
+                          </a>
+                          <span className="comment__content">
+                            {newReview.text}
+                          </span>
+
+                          {newReview.likes != 0 && (
+                            <div className="comment__reactions reactions">
+                              <img
+                                src={likeIcon}
+                                className="reactions__emojis reactions__like"
+                              />
+                              {/* <span className="reactions__count">
+                                  {reviewLikes}
+                                </span> */}
+                            </div>
+                          )}
+
+                          <div className="comment__links links">
+                            <span>
+                              <a className="links__like">Like</a> &#183;
+                            </span>
+                            <span>
+                              <a className="links__reply">
+                                {newReview.rating}🌟
+                              </a>
+                              &#183;
+                            </span>
+
+                            <span>
+                              <a href="#" className="links__date">
+                                Just now
+                              </a>
+                            </span>
+                          </div>
+                        </div>
+                        <div className="friend-comment__options options">
+                          <i className="options__icon options__comment"></i>
+                        </div>
+                      </div>
+                    )}
+
                     {placeDetails[2].map((review, i) => {
                       const [reviewLikes, setReviewLikes] = useState(
                         review.likes
@@ -202,7 +293,10 @@ const PlaceModal = ({
                             }
                             className="friend-comment__pic"
                           />
-                          <div className="friend-comment__comment comment">
+                          <div
+                            className="friend-comment__comment comment"
+                            key={i}
+                          >
                             <a href="#" className="comment__author">
                               {review.author_name}
                             </a>
@@ -237,6 +331,13 @@ const PlaceModal = ({
                                 </a>{" "}
                                 &#183;
                               </span>
+                              <span>
+                                <a className="links__reply">
+                                  {review.rating}🌟
+                                </a>
+                                &#183;
+                              </span>
+
                               <span>
                                 <a href="#" className="links__date">
                                   {review.relative_time_description}
