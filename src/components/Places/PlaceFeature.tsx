@@ -117,6 +117,15 @@ const PlaceFeature = ({
         console.error("Error fetching data:", error);
       });
   };
+
+  const handleGoogleMapDirectionRedirect = (locationCoordinates: string) => {
+    const locationCoordinatesJsonFormat = JSON.parse(locationCoordinates);
+    const locationLatitude = locationCoordinatesJsonFormat["lat"];
+    const locationLongitude = locationCoordinatesJsonFormat["lng"];
+    // Simulate a mouse click:
+    const DirecttionRedirectUrl = `https://www.google.com/maps?saddr=My+Location&daddr=${locationLatitude},${locationLongitude}`;
+    return DirecttionRedirectUrl;
+  };
   return (
     <section className="section featured-car place-component" id="featured-car">
       <div className="container">
@@ -308,7 +317,17 @@ const PlaceFeature = ({
                       ></HeartOutline>
                     </button>
 
-                    <button className="btn">Explore</button>
+                    <button
+                      className="btn"
+                      onClick={() => {
+                        window.open(
+                          handleGoogleMapDirectionRedirect(place.location),
+                          "_blank"
+                        );
+                      }}
+                    >
+                      Explore
+                    </button>
                   </div>
                 </div>
               </div>

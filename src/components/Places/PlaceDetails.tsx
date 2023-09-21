@@ -16,7 +16,7 @@ interface PlaceModalProps {
 const PlaceModal = ({
   setOpenPlaceModal,
   placeDetails,
-  setPlaceDetails,
+  // setPlaceDetails,
   client,
 }: PlaceModalProps) => {
   const handleUpdateLikes = (
@@ -127,7 +127,7 @@ const PlaceModal = ({
                   className="content__image"
                 />
               </div>
-              {/* <!-- POST FOOTER --> */}
+              1{/* <!-- POST FOOTER --> */}
               <div className="post__footer footer">
                 {/* <!-- Reactions --> */}
                 <div className="footer__reactions reactions">
