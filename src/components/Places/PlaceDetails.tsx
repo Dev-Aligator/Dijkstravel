@@ -4,6 +4,7 @@ import { Star } from "react-ionicons";
 import { likeIcon, userDefaultAvatat } from "../../assets";
 import { AxiosInstance } from "axios";
 import { useState } from "react";
+import PlacesDetailsInfo from "./PlacesDetailsInfo";
 
 interface PlaceModalProps {
   setOpenPlaceModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,6 +28,15 @@ const PlaceModal = ({
       .catch(function (error) {
         console.log(error);
       });
+  };
+
+  const handleGoogleMapDirectionRedirect = (locationCoordinates: string) => {
+    const locationCoordinatesJsonFormat = JSON.parse(locationCoordinates);
+    const locationLatitude = locationCoordinatesJsonFormat["lat"];
+    const locationLongitude = locationCoordinatesJsonFormat["lng"];
+    // Simulate a mouse click:
+    const DirecttionRedirectUrl = `https://www.google.com/maps?saddr=My+Location&daddr=${locationLatitude},${locationLongitude}`;
+    return DirecttionRedirectUrl;
   };
 
   const [formData, setFormData] = useState({
@@ -126,9 +136,12 @@ const PlaceModal = ({
               {/* <!-- POST CONTENT --> */}
               <div className="post__content content">
                 <p className="content__paragraph">
-                  Facebook's Oculus Quest 2 starts shipping today! It's another
-                  big step forward for VR. I've been using mine all summer and
-                  I'm looking forward to more of you experiencing this.
+                  {placeDetails[1] && placeDetails[0] && (
+                    <PlacesDetailsInfo
+                      placeDetails={placeDetails[1]}
+                      place={placeDetails[0]}
+                    ></PlacesDetailsInfo>
+                  )}
                 </p>
                 <img
                   src={placeDetails[0]?.photo.replace(
@@ -143,15 +156,7 @@ const PlaceModal = ({
                 {/* <!-- Reactions --> */}
                 <div className="footer__reactions reactions">
                   <div className="reactions__emojis emojis">
-                    <span className="emojis__count">
-                      <a href="#">193 </a>
-                      <Star
-                        color={"#f8e45c"}
-                        title={""}
-                        height="25px"
-                        width="25px"
-                      ></Star>
-                    </span>
+                    <span className="emojis__count"></span>
                   </div>
                   <div className="reactions__comments-shares comment-shares">
                     <span className="comment-shares__comments">
@@ -164,6 +169,21 @@ const PlaceModal = ({
                 </div>
                 {/* <!-- Buttons --> */}
                 <div className="footer__buttons buttons">
+                  <span
+                    className="buttons__like like"
+                    onClick={() => {
+                      if (placeDetails[0]?.location) {
+                        window.open(
+                          handleGoogleMapDirectionRedirect(
+                            placeDetails[0]?.location
+                          ),
+                          "_blank"
+                        );
+                      }
+                    }}
+                  >
+                    <i className="like__icon"></i>Explore
+                  </span>
                   <span className="buttons__comment comment">
                     <i className="comment__icon"></i>Review
                   </span>
@@ -174,9 +194,9 @@ const PlaceModal = ({
                 {/* <!-- Comments --> */}
                 <div className="footer__comments comments">
                   {/* <!-- Comments filter --> */}
-                  <div className="comments__filter filter">
+                  {/* <div className="comments__filter filter">
                     Most Relevant<i className="filter__icon"></i>
-                  </div>
+                  </div> */}
                   {/* <!-- Comments box --> */}
                   <div className="comments__box box">
                     <div className="box__profile profile">
