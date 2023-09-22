@@ -7,8 +7,8 @@ interface RegisterPageProps {
 }
 const RegisterPage = ({ setFormPage }: RegisterPageProps) => {
   const [showPasswd, setShowPasswd] = useState(false);
-  const baseUrl = "http://localhost:8000";
-  // const baseUrl = "https://aligator.pythonanywhere.com";
+  // const baseUrl = "http://localhost:8000";
+  const baseUrl = "https://aligator.pythonanywhere.com";
 
   const [formData, setFormData] = useState({
     username: "",

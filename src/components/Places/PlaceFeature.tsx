@@ -72,12 +72,12 @@ const PlaceFeature = ({
       });
     }
   }, []);
-  const baseUrl = "http://localhost:8000";
+  // const baseUrl = "http://localhost:8000";
+  const baseUrl = "https://aligator.pythonanywhere.com";
 
   useEffect(() => {
     setPlaces([]);
     // Define the API URL
-    // const baseUrl = "https://aligator.pythonanywhere.com";
     const apiUrl = `${baseUrl}/api/get/places/?page=${pageNumber}&keyword=${keyword}&location=${[
       current_latitude,
       current_longitude,
