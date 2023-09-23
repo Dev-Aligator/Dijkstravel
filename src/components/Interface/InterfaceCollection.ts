@@ -51,3 +51,15 @@ export interface Review {
   translated: boolean;
   likes: number;
 }
+
+
+export interface UserFeature {
+  user:  number;
+  firstName: string | null;
+  lastName: string | null;
+  lastLatitude: number | null;
+  lastLongitude: number | null;
+  photoUrl: string | null;
+  // Add other fields for user details like oldest location, interests, etc.
+}
+

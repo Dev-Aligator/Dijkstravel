@@ -9,6 +9,7 @@ interface ModalProps {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   authenticated: boolean;
   client: AxiosInstance;
+  getUserFunction: () => void;
 }
 
 function Modal({
@@ -16,6 +17,7 @@ function Modal({
   setAuthenticated,
   authenticated,
   client,
+  getUserFunction,
 }: ModalProps) {
   const [formPage, setFormPage] = useState(true);
   return (
@@ -37,6 +39,7 @@ function Modal({
                 setAuthenticated={setAuthenticated}
                 authenticated={authenticated}
                 client={client}
+                getUser={getUserFunction}
               ></LoginPage>
             ) : (
               <RegisterPage setFormPage={setFormPage}></RegisterPage>

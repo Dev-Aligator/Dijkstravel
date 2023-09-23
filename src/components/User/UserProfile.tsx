@@ -1,8 +1,48 @@
 import "../../styles/UserProfile.css";
-const UserProfile = () => {
+import { UserFeature } from "../Interface/InterfaceCollection";
+import { userDefaultAvatat } from "../../assets";
+import { useEffect, useState } from "react";
+import { AxiosInstance } from "axios";
+
+interface UserProfileProps {
+  userInfo: [String, UserFeature | null];
+  client: AxiosInstance;
+}
+const UserProfile = ({ userInfo, client }: UserProfileProps) => {
+  const [formData, setFormData] = useState({
+    firstName: userInfo[1]?.firstName ? userInfo[1]?.firstName : "",
+    lastName: userInfo[1]?.lastName ? userInfo[1]?.lastName : "",
+    photoUrl: userInfo[1]?.photoUrl ? userInfo[1]?.photoUrl : userDefaultAvatat,
+  });
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  useEffect(() => {
+    setFormData({
+      firstName: userInfo[1]?.firstName || "",
+      lastName: userInfo[1]?.lastName || "",
+      photoUrl: userInfo[1]?.photoUrl || userDefaultAvatat,
+    });
+  }, [userInfo]);
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    client.post("/api/post/update_user/", formData).then(function (res) {
+      console.log(res);
+    });
+  };
+
   return (
     <div className="container light-style flex-grow-1 container-p-y">
-      <h4 className="font-weight-bold py-3 mb-4">Account settings</h4>
+      <h4 className="font-weight-bold py-3 mb-4 placeholder">
+        Account settings
+      </h4>
       <div className="card overflow-hidden card-profile">
         <div className="row no-gutters row-bordered row-border-light">
           <div className="col-md-3 pt-0">
@@ -56,11 +96,21 @@ const UserProfile = () => {
               <div className="tab-pane fade active show" id="account-general">
                 <div className="card-body media align-items-center">
                   <img
-                    src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                    src={
+                      userInfo[1]?.photoUrl
+                        ? userInfo[1].photoUrl
+                        : userDefaultAvatat
+                    }
                     className="d-block ui-w-80"
                   ></img>
                   <div className="media-body ml-4">
-                    <input type="url" className="form-control mb-1"></input>
+                    <input
+                      type="url"
+                      className="form-control mb-1"
+                      value={formData.photoUrl}
+                      name="photoUrl"
+                      onChange={handleChange}
+                    ></input>
                     &nbsp;
                     <button
                       type="button"
@@ -73,23 +123,32 @@ const UserProfile = () => {
                 <hr className="border-light m-0"></hr>
                 <div className="card-body">
                   <div className="form-group">
-                    <label className="userform-label">Username</label>
+                    <label className="userform-label">First Name</label>
                     <input
                       type="text"
                       className="form-control mb-1"
-                      value="nmaxwell"
+                      value={formData.firstName}
+                      name="firstName"
+                      onChange={handleChange}
                     ></input>
                   </div>
                   <div className="form-group">
-                    <label className="userform-label">Name</label>
-                    <input type="text" className="form-control"></input>
+                    <label className="userform-label">Last Name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={formData.lastName}
+                      name="lastName"
+                      onChange={handleChange}
+                    ></input>
                   </div>
                   <div className="form-group">
                     <label className="userform-label">E-mail</label>
                     <input
                       type="text"
                       className="form-control mb-1"
-                      value="nmaxwell@mail.com"
+                      value={`${userInfo[0]}`}
+                      disabled={true}
                     ></input>
                     <div className="alert alert-warning mt-3">
                       Your email is not confirmed. Please check your inbox.
@@ -353,7 +412,11 @@ const UserProfile = () => {
         </div>
       </div>
       <div className="text-right mt-3">
-        <button type="button" className="btn btn-primary">
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={handleSubmit}
+        >
           Save changes
         </button>
         &nbsp;

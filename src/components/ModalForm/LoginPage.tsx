@@ -8,6 +8,7 @@ interface LoginPageProps {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   authenticated: boolean;
   client: AxiosInstance;
+  getUser: () => void;
 }
 
 const LoginPage = ({
@@ -16,6 +17,7 @@ const LoginPage = ({
   setAuthenticated,
   // authenticated,
   client,
+  getUser,
 }: LoginPageProps) => {
   const [showPasswd, setShowPasswd] = useState(false);
 
@@ -40,17 +42,6 @@ const LoginPage = ({
       setOpenModal(false);
       getUser();
     });
-  };
-
-  const getUser = () => {
-    client
-      .get("/api/get/user/")
-      .then(function (res) {
-        console.log(res);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   };
 
   return (

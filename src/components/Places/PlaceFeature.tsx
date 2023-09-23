@@ -73,12 +73,12 @@ const PlaceFeature = ({
     }
   }, []);
   // const baseUrl = "http://localhost:8000";
-  const baseUrl = "https://aligator.pythonanywhere.com";
+  // const baseUrl = "https://aligator.pythonanywhere.com";
 
   useEffect(() => {
     setPlaces([]);
     // Define the API URL
-    const apiUrl = `${baseUrl}/api/get/places/?page=${pageNumber}&keyword=${keyword}&location=${[
+    const apiUrl = `/api/get/places/?page=${pageNumber}&keyword=${keyword}&location=${[
       current_latitude,
       current_longitude,
     ]}`;
@@ -101,7 +101,7 @@ const PlaceFeature = ({
 
   const handleClick = (placeId: string, totalReviews: number | null) => {
     setClickedDiv(placeId);
-    const apiUrl = `${baseUrl}/api/get/place_details/?placeId=${placeId}`;
+    const apiUrl = `/api/get/place_details/?placeId=${placeId}`;
     client
       .get(apiUrl)
       .then((response) => {

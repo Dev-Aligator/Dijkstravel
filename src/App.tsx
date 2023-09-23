@@ -23,6 +23,7 @@ import {
   Place,
   PlaceDetails,
   Review,
+  UserFeature,
 } from "./components/Interface/InterfaceCollection";
 
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -44,16 +45,34 @@ const App = () => {
   const [placeDetails, setPlaceDetails] = useState<
     [Place | null, PlaceDetails | null, Review[], String]
   >([null, null, [], ""]);
+
+  const [userInfo, setUserInfo] = useState<[String, UserFeature | null]>([
+    "undefine",
+    null,
+  ]);
+
   useEffect(() => {
     client
       .get("/api/authenticate/", { withCredentials: true })
       .then(function () {
         setAuthenticated(true);
+        getUser();
       })
       .catch(function () {
         setAuthenticated(false);
       });
   }, []);
+
+  const getUser = () => {
+    client
+      .get("/api/get/user/")
+      .then(function (res) {
+        setUserInfo([res.data["user"]["email"], res.data["user_details"]]);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   return (
     <Routes>
@@ -67,6 +86,7 @@ const App = () => {
                 setAuthenticated={setAuthenticated}
                 authenticated={authenticated}
                 client={client}
+                getUserFunction={getUser}
               />
             )}
             <div className={`${styles.paddingX} ${styles.flexCenter}`}>
@@ -115,6 +135,7 @@ const App = () => {
                     setAuthenticated={setAuthenticated}
                     authenticated={authenticated}
                     client={client}
+                    getUserFunction={getUser}
                   />
                 )}
 
@@ -152,7 +173,7 @@ const App = () => {
               authenticated={authenticated}
               client={client}
             />
-            <UserProfile></UserProfile>
+            <UserProfile userInfo={userInfo} client={client}></UserProfile>
           </div>
         }
       ></Route>
