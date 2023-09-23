@@ -31,8 +31,8 @@ axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
 
 const client = axios.create({
-  // baseURL: "http://localhost:8000",
-  baseURL: "https://aligator.pythonanywhere.com",
+  baseURL: "http://localhost:8000",
+  // baseURL: "https://aligator.pythonanywhere.com",
 });
 
 const App = () => {
@@ -96,6 +96,7 @@ const App = () => {
                   setOpenModal={setModalOpen}
                   authenticated={authenticated}
                   client={client}
+                  userInfo={userInfo}
                 />
               </div>
             </div>
@@ -144,6 +145,7 @@ const App = () => {
                     setOpenPlaceModal={setOpenPlaceModal}
                     placeDetails={placeDetails}
                     client={client}
+                    userInfo={userInfo}
                   ></PlaceModal>
                 )}
                 <Navbar
@@ -151,12 +153,14 @@ const App = () => {
                   setOpenModal={setModalOpen}
                   authenticated={authenticated}
                   setAuthenticated={setAuthenticated}
+                  userInfo={userInfo}
                 />
                 <PlaceGetStarted setOpenModal={setModalOpen}></PlaceGetStarted>
                 <PlaceFeature
                   client={client}
                   setOpenPlaceModal={setOpenPlaceModal}
                   setPlaceDetails={setPlaceDetails}
+                  userInfo={userInfo}
                 ></PlaceFeature>
               </div>
             </article>
@@ -172,6 +176,7 @@ const App = () => {
               setOpenModal={setModalOpen}
               authenticated={authenticated}
               client={client}
+              userInfo={userInfo}
             />
             <UserProfile userInfo={userInfo} client={client}></UserProfile>
           </div>

@@ -1,5 +1,10 @@
 import "../../styles/PlaceDetailsModal.css";
-import { Place, PlaceDetails, Review } from "../Interface/InterfaceCollection";
+import {
+  Place,
+  PlaceDetails,
+  Review,
+  UserFeature,
+} from "../Interface/InterfaceCollection";
 import { Star } from "react-ionicons";
 import { likeIcon, userDefaultAvatat } from "../../assets";
 import { AxiosInstance } from "axios";
@@ -10,11 +15,13 @@ interface PlaceModalProps {
   setOpenPlaceModal: React.Dispatch<React.SetStateAction<boolean>>;
   placeDetails: [Place | null, PlaceDetails | null, Review[], String];
   client: AxiosInstance;
+  userInfo: [String, UserFeature | null];
 }
 const PlaceModal = ({
   setOpenPlaceModal,
   placeDetails,
   client,
+  userInfo,
 }: PlaceModalProps) => {
   const handleUpdateLikes = (
     reviewId: string,
@@ -200,7 +207,14 @@ const PlaceModal = ({
                   {/* <!-- Comments box --> */}
                   <div className="comments__box box">
                     <div className="box__profile profile">
-                      <img src={userDefaultAvatat} className="profile__pic" />
+                      <img
+                        src={
+                          userInfo[1]?.photoUrl
+                            ? userInfo[1]?.photoUrl
+                            : userDefaultAvatat
+                        }
+                        className="profile__pic"
+                      />
                     </div>
                     <div className="box__bar bar">
                       <input

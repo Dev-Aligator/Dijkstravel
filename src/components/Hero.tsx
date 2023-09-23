@@ -4,7 +4,6 @@ import GetStarted from "./GetStarted";
 import { HiLocationMarker } from "react-icons/hi";
 import { motion, AnimatePresence } from "framer-motion";
 
-
 interface HeroProps {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }

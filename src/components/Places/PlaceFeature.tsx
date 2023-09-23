@@ -11,7 +11,12 @@ import PulseLoader from "react-spinners/PulseLoader";
 import { useEffect, useState, CSSProperties } from "react";
 import { AxiosInstance } from "axios";
 import { Pagination } from "@mui/material";
-import { Place, PlaceDetails, Review } from "../Interface/InterfaceCollection";
+import {
+  Place,
+  PlaceDetails,
+  Review,
+  UserFeature,
+} from "../Interface/InterfaceCollection";
 
 interface PlaceFeatureProps {
   client: AxiosInstance;
@@ -19,6 +24,7 @@ interface PlaceFeatureProps {
   setPlaceDetails: React.Dispatch<
     React.SetStateAction<[Place | null, PlaceDetails | null, Review[], String]>
   >;
+  userInfo: [String, UserFeature | null];
 }
 
 const override: CSSProperties = {
@@ -34,6 +40,7 @@ const PlaceFeature = ({
   client,
   setOpenPlaceModal,
   setPlaceDetails,
+  userInfo,
 }: PlaceFeatureProps) => {
   const [places, setPlaces] = useState<Place[]>([]);
   let [loading, setLoading] = useState(true);
@@ -57,8 +64,16 @@ const PlaceFeature = ({
     // You can perform further actions with the keyword here, such as making an API request.
   };
 
-  const [current_latitude, setCurrentLatitude] = useState(10.8856441);
-  const [current_longitude, setCurrentLongitude] = useState(106.7818433);
+  // const [current_latitude, setCurrentLatitude] = useState(10.8856441);
+  // const [current_longitude, setCurrentLongitude] = useState(106.7818433);
+
+  const [current_latitude, setCurrentLatitude] = useState(
+    userInfo[1]?.lastLatitude ? userInfo[1]?.lastLatitude : 10.8856441
+  );
+  const [current_longitude, setCurrentLongitude] = useState(
+    userInfo[1]?.lastLongitude ? userInfo[1].lastLongitude : 106.7818433
+  );
+
   useEffect(() => {
     // Use a flag to track whether the geolocation has been fetched already
     let geolocationFetched = false;

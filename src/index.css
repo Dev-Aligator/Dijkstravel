@@ -212,3 +212,7 @@ li.mr-0 a {
   --tw-bg-opacity: 1;
   background-color: black;
 }
+
+.profile-li {
+  transform: translateX(50px);
+}
