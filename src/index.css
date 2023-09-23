@@ -207,3 +207,8 @@ li.mr-0 a {
   color: inherit; /* Inherit the color from the button */
   text-decoration: none;
 }
+
+.bg-primary-custom {
+  --tw-bg-opacity: 1;
+  background-color: black;
+}

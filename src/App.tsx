@@ -13,6 +13,7 @@ import {
   PlaceFeature,
   PlaceGetStarted,
   PlaceModal,
+  UserProfile,
 } from "./components";
 import styles from "./style";
 import { useEffect, useState } from "react";
@@ -59,7 +60,7 @@ const App = () => {
       <Route
         path="/"
         element={
-          <div className="bg-primary w-full overflow-hidden main-modal">
+          <div className="bg-primary-custom w-full overflow-hidden main-modal">
             {modalOpen && !authenticated && (
               <Modal
                 setOpenModal={setModalOpen}
@@ -78,13 +79,13 @@ const App = () => {
                 />
               </div>
             </div>
-            <div className={`bg-primary ${styles.flexStart}`}>
+            <div className={`bg-primary-custom ${styles.flexStart}`}>
               <div className={`${styles.boxWidth}`}>
                 <Hero setOpenModal={setModalOpen} />
               </div>
             </div>
             <div
-              className={`bg-primary ${styles.paddingX} ${styles.flexStart}`}
+              className={`bg-primary-custom ${styles.paddingX} ${styles.flexStart}`}
             >
               <div className={`${styles.boxWidth}`}>
                 <Stats />
@@ -141,6 +142,20 @@ const App = () => {
           </main>
         }
       />
+      <Route
+        path="/profile"
+        element={
+          <div className="bg-primary-profile">
+            <Navbar
+              setAuthenticated={setAuthenticated}
+              setOpenModal={setModalOpen}
+              authenticated={authenticated}
+              client={client}
+            />
+            <UserProfile></UserProfile>
+          </div>
+        }
+      ></Route>
     </Routes>
   );
 };
