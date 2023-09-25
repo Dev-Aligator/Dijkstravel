@@ -22,6 +22,8 @@
     "postcss": "^8.4.27",
     "react": "^18.2.0",
     "react-accessible-accordion": "^5.0.0",
+    "react-alert": "^7.0.3",
+    "react-alert-template-mui": "^1.0.7",
     "react-animation-on-scroll": "^5.1.0",
     "react-countup": "^6.4.2",
     "react-dom": "^18.2.0",

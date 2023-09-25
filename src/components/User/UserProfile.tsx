@@ -3,11 +3,13 @@ import { UserFeature } from "../Interface/InterfaceCollection";
 import { userDefaultAvatat } from "../../assets";
 import { useEffect, useState } from "react";
 import { AxiosInstance } from "axios";
+import Aleart from "../Aleart";
 
 interface UserProfileProps {
   userInfo: [String, UserFeature | null];
   client: AxiosInstance;
 }
+
 const UserProfile = ({ userInfo, client }: UserProfileProps) => {
   const [formData, setFormData] = useState({
     firstName: userInfo[1]?.firstName ? userInfo[1]?.firstName : "",
@@ -35,11 +37,21 @@ const UserProfile = ({ userInfo, client }: UserProfileProps) => {
     e.preventDefault();
     client.post("/api/post/update_user/", formData).then(function (res) {
       console.log(res);
+      setIsAleart(true);
     });
   };
+  const [isAleart, setIsAleart] = useState(false);
 
   return (
     <div className="container light-style flex-grow-1 container-p-y">
+      <Aleart
+        isAleart={isAleart}
+        setIsAleart={setIsAleart}
+        title="Success"
+        normalText="Information Updated"
+        strongText="Check again"
+      ></Aleart>
+
       <h4 className="font-weight-bold py-3 mb-4 placeholder">
         Account settings
       </h4>

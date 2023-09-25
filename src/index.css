@@ -216,3 +216,11 @@ li.mr-0 a {
 .profile-li {
   transform: translateX(50px);
 }
+
+.alert-box {
+  position: absolute; /* or 'fixed' depending on your requirements */
+  top: 50px; /* Adjust top, left, right, or bottom as needed */
+  left: 0;
+  z-index: 999; /* Adjust the z-index to control stacking order */
+  /* Add any other styles you want for the alert box */
+}

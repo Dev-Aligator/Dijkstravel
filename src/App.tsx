@@ -25,6 +25,7 @@ import {
   Review,
   UserFeature,
 } from "./components/Interface/InterfaceCollection";
+import Aleart from "./components/Aleart";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -50,6 +51,7 @@ const App = () => {
     "undefine",
     null,
   ]);
+  const [isAleart, setIsAleart] = useState(0);
 
   useEffect(() => {
     client
@@ -68,6 +70,7 @@ const App = () => {
       .get("/api/get/user/")
       .then(function (res) {
         setUserInfo([res.data["user"]["email"], res.data["user_details"]]);
+        setIsAleart(1);
       })
       .catch(function (error) {
         console.log(error);
@@ -80,6 +83,13 @@ const App = () => {
         path="/"
         element={
           <div className="bg-primary-custom w-full overflow-hidden main-modal">
+            <Aleart
+              isAleart={isAleart}
+              setIsAleart={setIsAleart}
+              title="Success"
+              normalText="You're currently logged in"
+              strongText="Start diving now"
+            ></Aleart>
             {modalOpen && !authenticated && (
               <Modal
                 setOpenModal={setModalOpen}

@@ -10,6 +10,7 @@ interface ModalProps {
   authenticated: boolean;
   client: AxiosInstance;
   getUserFunction: () => void;
+  setIsAleart: React.Dispatch<React.SetStateAction<number>>;
 }
 
 function Modal({

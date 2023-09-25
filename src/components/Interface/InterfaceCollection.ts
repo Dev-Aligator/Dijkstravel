@@ -1,3 +1,9 @@
+import { OverridableStringUnion } from "@mui/types";
+import {
+  AlertColor,
+  AlertPropsColorOverrides,
+} from "@mui/material/Alert";
+
 export interface Place {
   googleMapId: string;
   name: string;
@@ -63,3 +69,13 @@ export interface UserFeature {
   // Add other fields for user details like oldest location, interests, etc.
 }
 
+export interface AleartProps {
+  isAleart: number;
+  setIsAleart: React.Dispatch<React.SetStateAction<number>>;
+  severity?: AlertColor;
+  color?: OverridableStringUnion<AlertColor, AlertPropsColorOverrides>;
+  title?: string;
+  normalText?: string;
+  strongText?: string;
+  timeOut?: number;
+}
