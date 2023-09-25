@@ -37,10 +37,10 @@ const UserProfile = ({ userInfo, client }: UserProfileProps) => {
     e.preventDefault();
     client.post("/api/post/update_user/", formData).then(function (res) {
       console.log(res);
-      setIsAleart(true);
+      setIsAleart(1);
     });
   };
-  const [isAleart, setIsAleart] = useState(false);
+  const [isAleart, setIsAleart] = useState(0);
 
   return (
     <div className="container light-style flex-grow-1 container-p-y">
