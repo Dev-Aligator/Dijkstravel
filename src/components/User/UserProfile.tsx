@@ -4,6 +4,7 @@ import { userDefaultAvatat } from "../../assets";
 import { useEffect, useState } from "react";
 import { AxiosInstance } from "axios";
 import Aleart from "../Aleart";
+import TabContainer from "./TabContainer";
 
 interface UserProfileProps {
   userInfo: [String, UserFeature | null];
@@ -101,6 +102,19 @@ const UserProfile = ({ userInfo, client }: UserProfileProps) => {
               >
                 Notifications
               </a>
+            </div>
+            <div className="text-right mt-3 save-changes-div">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleSubmit}
+              >
+                Save changes
+              </button>
+              &nbsp;
+              {/* <button type="button" className="btn btn-default">
+                Cancel
+              </button> */}
             </div>
           </div>
           <div className="col-md-9">
@@ -423,19 +437,8 @@ const UserProfile = ({ userInfo, client }: UserProfileProps) => {
           </div>
         </div>
       </div>
-      <div className="text-right mt-3">
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={handleSubmit}
-        >
-          Save changes
-        </button>
-        &nbsp;
-        <button type="button" className="btn btn-default">
-          Cancel
-        </button>
-      </div>
+
+      <TabContainer></TabContainer>
     </div>
   );
 };

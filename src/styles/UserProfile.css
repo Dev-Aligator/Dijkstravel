@@ -140,3 +140,8 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 .placeholder {
     visibility: hidden;
 }
+
+.save-changes-div {
+    position: absolute;
+    bottom: 0;
+}
