@@ -37,12 +37,7 @@
     letter-spacing: 0.4px;
     color: #fff;
   }
-  .user-tab-tab-content div {
-    display: none;
-  }
-  .user-tab-tab-content .user-tab-active {
-    display: block;
-  }
+
   .user-tab-tabs .user-tab-active {
     background-color: rgba(0,0,0,0.2);
     color: #fff;

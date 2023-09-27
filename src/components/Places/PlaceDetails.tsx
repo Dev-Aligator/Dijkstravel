@@ -102,6 +102,20 @@ const PlaceModal = ({
       return `${millions}M`;
     }
   };
+
+  const handleSavePlaceClicked = () => {
+    const reuqestAction = "AddSelectedPlaceToUserSavedPlaces";
+    const apiUrl = `/api/get/save_place/?action=${reuqestAction}&placeId=${placeDetails[0]?.googleMapId}`;
+
+    client
+      .get(apiUrl)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  };
   return (
     <div className="real-container">
       <div
@@ -194,7 +208,10 @@ const PlaceModal = ({
                   <span className="buttons__comment comment">
                     <i className="comment__icon"></i>Review
                   </span>
-                  <span className="buttons__share share">
+                  <span
+                    className="buttons__share share"
+                    onClick={handleSavePlaceClicked}
+                  >
                     <i className="share__icon"></i>Save
                   </span>
                 </div>

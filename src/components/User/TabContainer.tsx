@@ -1,6 +1,12 @@
 import { useState } from "react";
 import "../../styles/UserTabContainer.css";
-const TabContainer = () => {
+import { AxiosInstance } from "axios";
+import UserSavedPlaces from "./TabComponent/UserSavedPlaces";
+
+interface TabContainerProps {
+  client: AxiosInstance;
+}
+const TabContainer = ({ client }: TabContainerProps) => {
   const [currentTab, setCurrentTab] = useState("saved-places");
   return (
     <div className="user-tab-container container">
@@ -13,7 +19,7 @@ const TabContainer = () => {
             setCurrentTab("saved-places");
           }}
         >
-          Tab 1
+          Saved Place
         </h3>
         <h3
           className={`tab-header ${
@@ -23,22 +29,13 @@ const TabContainer = () => {
             setCurrentTab("places-commented");
           }}
         >
-          Tab 2
+          Comments
         </h3>
       </div>
       <div className="user-tab-tab-content">
         {currentTab == "saved-places" ? (
           <div className="user-tab-active">
-            <h4>First Title</h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore
-              explicabo cum dolores hic possimus aut corrupti quisquam aperiam
-              quia veniam inventore officiis nam error sunt libero, commodi
-              architecto reiciendis qui fuga, itaque delectus quidem sequi.
-              Impedit natus culpa nihil aperiam adipisci aliquam error, suscipit
-              odio? Error sed esse perspiciatis quasi velit, ratione odit
-              architecto? Explicabo pariatur.
-            </p>
+            <UserSavedPlaces client={client}></UserSavedPlaces>
           </div>
         ) : (
           <div className="user-tab-active">

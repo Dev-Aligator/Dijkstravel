@@ -41,6 +41,10 @@ const UserProfile = ({ userInfo, client }: UserProfileProps) => {
       setIsAleart(1);
     });
   };
+  const [tempProfilePicture, setTempProfilePicture] = useState("");
+  const updateProfilePicture = () => {
+    setTempProfilePicture(formData.photoUrl);
+  };
   const [isAleart, setIsAleart] = useState(0);
 
   return (
@@ -123,7 +127,9 @@ const UserProfile = ({ userInfo, client }: UserProfileProps) => {
                 <div className="card-body media align-items-center">
                   <img
                     src={
-                      userInfo[1]?.photoUrl
+                      tempProfilePicture
+                        ? tempProfilePicture
+                        : userInfo[1]?.photoUrl
                         ? userInfo[1].photoUrl
                         : userDefaultAvatat
                     }
@@ -141,6 +147,9 @@ const UserProfile = ({ userInfo, client }: UserProfileProps) => {
                     <button
                       type="button"
                       className="profile-custom-button md-btn-flat"
+                      onClick={() => {
+                        updateProfilePicture();
+                      }}
                     >
                       Reset
                     </button>
@@ -438,7 +447,7 @@ const UserProfile = ({ userInfo, client }: UserProfileProps) => {
         </div>
       </div>
 
-      <TabContainer></TabContainer>
+      <TabContainer client={client}></TabContainer>
     </div>
   );
 };

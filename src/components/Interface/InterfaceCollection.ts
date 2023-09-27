@@ -79,3 +79,11 @@ export interface AleartProps {
   strongText?: string;
   timeOut?: number;
 }
+
+export interface SavedPlace {
+  id: number; 
+  saved_date: string;   // Assuming saved_date is a string representing a date           // Assuming id is a number
+  user: string | number; // Replace with the actual type of user (string or number)
+  place: Place;
+}
+
