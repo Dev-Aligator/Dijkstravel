@@ -71,7 +71,6 @@ export interface UserFeature {
 
 export interface AleartProps {
   isAleart: number;
-  setIsAleart: React.Dispatch<React.SetStateAction<number>>;
   severity?: AlertColor;
   color?: OverridableStringUnion<AlertColor, AlertPropsColorOverrides>;
   title?: string;

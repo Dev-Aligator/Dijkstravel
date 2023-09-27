@@ -1,5 +1,5 @@
 import "../../styles/UserProfile.css";
-import { UserFeature } from "../Interface/InterfaceCollection";
+import { AleartProps, UserFeature } from "../Interface/InterfaceCollection";
 import { userDefaultAvatat } from "../../assets";
 import { useEffect, useState } from "react";
 import { AxiosInstance } from "axios";
@@ -38,23 +38,32 @@ const UserProfile = ({ userInfo, client }: UserProfileProps) => {
     e.preventDefault();
     client.post("/api/post/update_user/", formData).then(function (res) {
       console.log(res);
-      setIsAleart(1);
+      setAleartInfo({
+        isAleart: 1,
+        title: "Success",
+        normalText: "Information Updated !",
+        strongText: "Check again",
+      });
     });
   };
   const [tempProfilePicture, setTempProfilePicture] = useState("");
   const updateProfilePicture = () => {
     setTempProfilePicture(formData.photoUrl);
   };
-  const [isAleart, setIsAleart] = useState(0);
+  const [aleartInfo, setAleartInfo] = useState<AleartProps>({
+    isAleart: 0,
+  });
 
   return (
     <div className="container light-style flex-grow-1 container-p-y">
       <Aleart
-        isAleart={isAleart}
-        setIsAleart={setIsAleart}
-        title="Success"
-        normalText="Information Updated"
-        strongText="Check again"
+        isAleart={aleartInfo.isAleart}
+        title={aleartInfo.title}
+        normalText={aleartInfo.normalText}
+        strongText={aleartInfo.strongText}
+        setAleartInfo={setAleartInfo}
+        severity={aleartInfo.severity}
+        color={aleartInfo.color}
       ></Aleart>
 
       <h4 className="font-weight-bold py-3 mb-4 placeholder">
