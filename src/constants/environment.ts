@@ -1,3 +1,3 @@
 export const environmentVariable = {
-    baseUrl: "https://aligator.pythonanywhere.com",
+    baseUrl: "http://localhost:8000",
 }

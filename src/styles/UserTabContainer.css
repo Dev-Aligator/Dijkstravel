@@ -24,6 +24,8 @@
   .user-tab-tab-content {
     background-color: rgba(0,0,0,0.2);
     padding: 50px 40px;
+    overflow-y: scroll;
+    max-height: 800px;
   }
   .user-tab-tab-content h4 {
     font-size: 28px;
@@ -42,3 +44,75 @@
     background-color: rgba(0,0,0,0.2);
     color: #fff;
   }
+
+  .save-place-photo {
+    width: 100%;
+    display: flex;
+  }
+  
+
+  .popular__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  
+  .popular__card {
+    overflow: hidden;
+    border-radius: 1rem;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    position: relative;
+  }
+  
+  .popular__content {
+    padding: 1rem;
+  }
+  
+  .popular__card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .popular__card__body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .popular__card__header h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+  
+  .popular__content p {
+    color: var(--text-light);
+  }
+
+  .save-place-btn {
+    margin-right: 0;
+  }
+  .close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 4px 8px; /* Adjust padding as needed */
+    cursor: pointer; /* Add a pointer cursor to indicate it's clickable */
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+  }
+
+  .close-button:hover {
+    transform: scale(1.5);
+  }
+  
+  @media (width < 600px) {
+    .popular__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  

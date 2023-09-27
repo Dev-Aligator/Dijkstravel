@@ -10,6 +10,7 @@ import { likeIcon, userDefaultAvatat } from "../../assets";
 import { AxiosInstance } from "axios";
 import { useState } from "react";
 import PlacesDetailsInfo from "./PlacesDetailsInfo";
+import Aleart from "../Aleart";
 
 interface PlaceModalProps {
   setOpenPlaceModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -102,7 +103,7 @@ const PlaceModal = ({
       return `${millions}M`;
     }
   };
-
+  const [isAleart, setIsAleart] = useState(0);
   const handleSavePlaceClicked = () => {
     const reuqestAction = "AddSelectedPlaceToUserSavedPlaces";
     const apiUrl = `/api/get/save_place/?action=${reuqestAction}&placeId=${placeDetails[0]?.googleMapId}`;
@@ -111,11 +112,13 @@ const PlaceModal = ({
       .get(apiUrl)
       .then((response) => {
         console.log(response);
+        setIsAleart(1);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   };
+
   return (
     <div className="real-container">
       <div
@@ -124,6 +127,13 @@ const PlaceModal = ({
           setOpenPlaceModal(false);
         }}
       ></div>
+      <Aleart
+        isAleart={isAleart}
+        setIsAleart={setIsAleart}
+        title="Success"
+        normalText="Selected place has been added !"
+        strongText="Visit Saved Places now"
+      ></Aleart>
       <div className="place-details-section">
         <div className="place-details-body">
           <div className="place-details-container">
