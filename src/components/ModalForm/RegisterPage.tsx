@@ -1,14 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import { googleIcon } from "../../assets";
-
+import { environmentVariable } from "../../constants/environment";
 interface RegisterPageProps {
   setFormPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const RegisterPage = ({ setFormPage }: RegisterPageProps) => {
   const [showPasswd, setShowPasswd] = useState(false);
   // const baseUrl = "http://localhost:8000";
-  const baseUrl = "https://aligator.pythonanywhere.com";
+  const baseUrl = environmentVariable.baseUrl;
 
   const [formData, setFormData] = useState({
     username: "",
