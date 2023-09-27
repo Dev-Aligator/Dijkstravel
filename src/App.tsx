@@ -20,6 +20,7 @@ import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import {
+  AleartProps,
   Place,
   PlaceDetails,
   Review,
@@ -51,7 +52,9 @@ const App = () => {
     "undefine",
     null,
   ]);
-  const [isAleart, setIsAleart] = useState(0);
+  const [aleartInfo, setAleartInfo] = useState<AleartProps>({
+    isAleart: 0,
+  });
 
   useEffect(() => {
     client
@@ -70,7 +73,12 @@ const App = () => {
       .get("/api/get/user/")
       .then(function (res) {
         setUserInfo([res.data["user"]["email"], res.data["user_details"]]);
-        setIsAleart(1);
+        setAleartInfo({
+          isAleart: 1,
+          title: "Success",
+          normalText: "You're currently logged in !",
+          strongText: "Start diving now",
+        });
       })
       .catch(function (error) {
         console.log(error);
@@ -84,11 +92,13 @@ const App = () => {
         element={
           <div className="bg-primary-custom w-full overflow-hidden main-modal">
             <Aleart
-              isAleart={isAleart}
-              setIsAleart={setIsAleart}
-              title="Success"
-              normalText="You're currently logged in"
-              strongText="Start diving now"
+              isAleart={aleartInfo.isAleart}
+              title={aleartInfo.title}
+              normalText={aleartInfo.normalText}
+              strongText={aleartInfo.strongText}
+              setAleartInfo={setAleartInfo}
+              severity={aleartInfo.severity}
+              color={aleartInfo.color}
             ></Aleart>
             {modalOpen && !authenticated && (
               <Modal

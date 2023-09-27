@@ -1,5 +1,6 @@
 import "../../styles/PlaceDetailsModal.css";
 import {
+  AleartProps,
   Place,
   PlaceDetails,
   Review,
@@ -103,7 +104,9 @@ const PlaceModal = ({
       return `${millions}M`;
     }
   };
-  const [isAleart, setIsAleart] = useState(0);
+  const [aleartInfo, setAleartInfo] = useState<AleartProps>({
+    isAleart: 0,
+  });
   const handleSavePlaceClicked = () => {
     const reuqestAction = "AddSelectedPlaceToUserSavedPlaces";
     const apiUrl = `/api/get/save_place/?action=${reuqestAction}&placeId=${placeDetails[0]?.googleMapId}`;
@@ -112,10 +115,23 @@ const PlaceModal = ({
       .get(apiUrl)
       .then((response) => {
         console.log(response);
-        setIsAleart(1);
+        setAleartInfo({
+          isAleart: 1,
+          title: "Success",
+          normalText: "Selected place has been added !",
+          strongText: "Visit Saved Places now",
+        });
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
+        setAleartInfo({
+          isAleart: 1,
+          title: "Warning",
+          normalText: "This place's already been saved before !",
+          strongText: "Consider remove it in Saved Places",
+          severity: "warning",
+          color: "warning",
+        });
       });
   };
 
@@ -127,16 +143,18 @@ const PlaceModal = ({
           setOpenPlaceModal(false);
         }}
       ></div>
-      <Aleart
-        isAleart={isAleart}
-        setIsAleart={setIsAleart}
-        title="Success"
-        normalText="Selected place has been added !"
-        strongText="Visit Saved Places now"
-      ></Aleart>
       <div className="place-details-section">
         <div className="place-details-body">
           <div className="place-details-container">
+            <Aleart
+              isAleart={aleartInfo.isAleart}
+              title={aleartInfo.title}
+              normalText={aleartInfo.normalText}
+              strongText={aleartInfo.strongText}
+              setAleartInfo={setAleartInfo}
+              severity={aleartInfo.severity}
+              color={aleartInfo.color}
+            ></Aleart>
             <div className="post">
               <div className="post__header place-details-header">
                 <div className="header__left">
