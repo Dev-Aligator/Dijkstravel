@@ -48,6 +48,7 @@
   .save-place-photo {
     width: 100%;
     display: flex;
+    max-height: 214px;
   }
   
 
@@ -63,6 +64,7 @@
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     position: relative;
+    max-height: 370px;
   }
   
   .popular__content {

@@ -193,10 +193,14 @@ const PlaceModal = ({
                   )}
                 </p>
                 <img
-                  src={placeDetails[0]?.photo.replace(
-                    "s1600-w400",
-                    "s1600-w800"
-                  )}
+                  src={
+                    placeDetails[0]?.photo
+                      ? placeDetails[0]?.photo.replace(
+                          "s1600-w400",
+                          "s1600-w800"
+                        )
+                      : ""
+                  }
                   className="content__image"
                 />
               </div>

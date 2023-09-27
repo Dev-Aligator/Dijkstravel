@@ -72,7 +72,7 @@ const UserSavedPlaces = ({ client }: UserSavePlacesProps) => {
               </span>
               <img
                 className="save-place-photo"
-                src={savedPlace.place.photo}
+                src={savedPlace.place.photo.replace("s1600-w400", "s1600-w285")}
                 alt={savedPlace.place.name}
               />
               <div className="popular__content">
