@@ -6,12 +6,12 @@ import {
   Review,
   UserFeature,
 } from "../Interface/InterfaceCollection";
-import { Star } from "react-ionicons";
 import { likeIcon, userDefaultAvatat } from "../../assets";
 import { AxiosInstance } from "axios";
 import { useState } from "react";
 import PlacesDetailsInfo from "./PlacesDetailsInfo";
 import Aleart from "../Aleart";
+import { Rating } from "@mui/material";
 
 interface PlaceModalProps {
   setOpenPlaceModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -53,10 +53,11 @@ const PlaceModal = ({
   });
 
   const [newReview, setNewReview] = useState<Review | null>(null);
-  const stars = Array.from({ length: 5 }, (_, i) => i);
-  const [selectedStar, setSelectedStar] = useState(5);
+  const [selectedStar, setSelectedStar] = useState(0);
+  const [reviewText, setReviewText] = useState("");
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
+    setReviewText(value);
     setFormData({
       ...formData,
       [name]: value,
@@ -98,6 +99,8 @@ const PlaceModal = ({
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleSubmit();
+      setReviewText("");
+      setSelectedStar(0);
     }
   };
 
@@ -287,32 +290,20 @@ const PlaceModal = ({
                         className="bar__input"
                         onChange={handleInputChange}
                         onKeyDown={handleKeyPress}
+                        value={reviewText}
                       />
-                      <div className="bar__emojis emojis">
-                        {stars.map((index) => (
-                          <span
-                            className={
-                              index + 1 == selectedStar
-                                ? "emojis__insert active insert"
-                                : "emojis__insert insert"
-                            }
-                          >
-                            <i
-                              className="review__star"
-                              onClick={() => {
-                                setSelectedStar(index + 1);
-                              }}
-                            >
-                              {index + 1}
-                              <Star
-                                color={"#f8e45c"}
-                                title={""}
-                                height="15px"
-                                width="15px"
-                              ></Star>
-                            </i>
-                          </span>
-                        ))}
+                      <div className="bar__stars">
+                        <Rating
+                          name="size-small"
+                          size="small"
+                          value={selectedStar}
+                          onChange={(event, newValue) => {
+                            setSelectedStar(
+                              newValue ? (newValue != 0 ? newValue : 5) : 5
+                            );
+                            console.log(event);
+                          }}
+                        />
                       </div>
                     </div>
                   </div>

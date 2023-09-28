@@ -1,7 +1,7 @@
 import { AxiosInstance } from "axios";
 import { useEffect, useState } from "react";
 import { Place, Review } from "../../Interface/InterfaceCollection";
-
+import Rating from "@mui/material/Rating";
 interface UserCommentProps {
   client: AxiosInstance;
 }
@@ -35,11 +35,12 @@ const UserComments = ({ client }: UserCommentProps) => {
                 <div className="name">{places[index].name}</div>
                 <div className="job">{comment.relative_time_description}</div>
                 <div className="stars">
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                  <i className="far fa-star"></i>
-                  <i className="far fa-star"></i>
-                  <i className="far fa-star"></i>
+                  <Rating
+                    name="size-small"
+                    value={comment.rating}
+                    size="small"
+                    readOnly
+                  />
                 </div>
               </div>
               <div className="image">

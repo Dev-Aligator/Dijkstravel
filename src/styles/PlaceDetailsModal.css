@@ -342,13 +342,13 @@ a {
 /* "Write a comment..." box */
 .comments__box {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   margin-bottom: 1rem;
 }
 
 .box__profile {
   margin-right: 1rem;
-  position: relative;
+  /* position: relative; */
 }
 
 .box__profile::after {
@@ -376,8 +376,9 @@ a {
 
 .box__bar {
   display: flex;
-  align-items: center;
   flex: 1;
+  flex-direction: column;
+  text-align: left !important;
 }
 
 .bar__input {
@@ -387,10 +388,13 @@ a {
   padding: 12px;
   font-size: 1.15rem;
   color: rgba(5, 5, 5, 0.8);
-  border-top-left-radius: 1.5rem;
-  border-bottom-left-radius: 1.5rem;
+  border-radius: 1.5rem;
   outline: none;
   flex: 1;
+}
+
+.bar__stars {
+  transform: translate(20px, -10px);
 }
 
 .bar__input::placeholder {
