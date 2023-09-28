@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../../styles/UserTabContainer.css";
 import { AxiosInstance } from "axios";
 import UserSavedPlaces from "./TabComponent/UserSavedPlaces";
+import UserComments from "./TabComponent/UserComments";
 
 interface TabContainerProps {
   client: AxiosInstance;
@@ -39,15 +40,7 @@ const TabContainer = ({ client }: TabContainerProps) => {
           </div>
         ) : (
           <div className="user-tab-active">
-            <h4>Second Title</h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Deleniti, fugiat ab? Accusamus sed a iusto? Placeat incidunt
-              repudiandae vero magnam nihil tempore quasi earum illum totam aut
-              delectus aliquam pariatur, iste, qui provident quo voluptatem
-              neque facere id laudantium aliquid numquam nisi accusantium.
-              Inventore reiciendis nulla, iste perferendis.
-            </p>
+            <UserComments client={client}></UserComments>
           </div>
         )}
       </div>

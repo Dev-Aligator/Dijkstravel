@@ -76,8 +76,22 @@ const PlaceModal = ({
 
       // Optionally, you can reset the reviewText in your form after successful submission
       setFormData({ reviewText: "" });
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.response && error.response.status === 409) {
+        // Handle the 409 conflict error here
+        setAleartInfo({
+          isAleart: 1,
+          title: "Error",
+          normalText: "You've already reviewed this place !",
+          strongText: "Change your mind ?",
+          severity: "error",
+          color: "error",
+        });
+        // You can add your custom logic for handling this conflict scenario
+      } else {
+        // Handle other errors
+        console.error(error);
+      }
     }
   };
 
