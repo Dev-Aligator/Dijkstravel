@@ -100,7 +100,6 @@ a {
   display: inline-block;
   width: 1.2rem;
   height: 1.2rem;
-  background-image: url(../images/icons-list-1.png);
   background-size: 7.1rem 43.2rem;
   background-repeat: no-repeat;
   background-position: -1.7rem -38.6rem;
@@ -144,7 +143,6 @@ a {
 }
 
 .post__privacy {
-  background-image: url(../images/icons-list-2.png);
   background-size: 2.6rem 89.4rem;
   background-position: 0 -78.2rem;
   opacity: 0.6;
@@ -292,7 +290,6 @@ a {
   width: 1.8rem;
   height: 1.8rem;
   display: inline-block;
-  background-image: url("../images/icons-list-3.png");
   background-size: 2.6rem 77.4rem;
   background-repeat: no-repeat;
   opacity: 0.6;
